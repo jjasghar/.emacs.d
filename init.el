@@ -97,6 +97,7 @@
 (require 'ansi-color)
 
 (load "~/.emacs.d/erc")
+(load "~/.emacs.d/defined-aliases")
 (load "~/.emacs.d/defined-fuctions")
 (load "~/.emacs.d/globaladdhooks")
 (load "~/.emacs.d/globalkey")
