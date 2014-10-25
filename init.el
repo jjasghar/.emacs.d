@@ -73,12 +73,12 @@
 ;; skip startup message
 (setq inhibit-startup-message t)
 
-;; Add MELPA for packages --> http://melpa.milkbox.net/
+;; Add MELPA for packages --> http://melpa.org
 (require 'package)
 
 ;; here there's a variable named package-archives, and we are adding the MELPA repository to it
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa.org/packages/") t)
 
 ;; loads packages and activates them
 (package-initialize)
