@@ -96,15 +96,17 @@
 
 (require 'ansi-color)
 
-(load "~/.emacs.d/erc")
+
 (load "~/.emacs.d/defined-aliases")
 (load "~/.emacs.d/defined-fuctions")
+(load "~/.emacs.d/erc")
 (load "~/.emacs.d/globaladdhooks")
 (load "~/.emacs.d/globalkey")
 (load "~/.emacs.d/mac-emacs")
 (load "~/.emacs.d/markdown-settings")
 (load "~/.emacs.d/newsticker")
 (load "~/.emacs.d/my-abbrevs")
+(load "~/.emacs.d/my-flycheck")
 (load "~/.emacs.d/my-gitgutter")
 (load "~/.emacs.d/my-ido")
 (load "~/.emacs.d/my-orgmode")
