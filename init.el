@@ -111,3 +111,22 @@
 (load "~/.emacs.d/my-ido")
 (load "~/.emacs.d/my-orgmode")
 (load "~/.emacs.d/webjump")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(erc-modules
+   (quote
+    (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services smiley stamp spelling track)))
+ '(git-gutter:added-sign "+")
+ '(git-gutter:deleted-sign "-")
+ '(magit-use-overlays nil)
+ '(send-mail-function nil)
+ '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
