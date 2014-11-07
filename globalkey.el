@@ -4,6 +4,9 @@
 ;; dash-at-point
 (global-set-key "\C-cd" 'dash-at-point)
 
+;; smex
+(global-set-key "\M-x" 'smex)
+
 ;; run spell check on word
 (global-set-key (kbd "M-s M-s") 'ispell-word)
 
@@ -19,7 +22,7 @@
 (global-set-key "\M-_" 'text-scale-decrease)
 
 ;; ace-jump-mode
-(global-set-key (kbd "C-c SPC") 'ace-jump-char-mode)
+(global-set-key (kbd "C-0") 'ace-jump-char-mode)
 
 ;; write out a region i've marked
 (global-set-key (kbd "C-x w") 'write-region)
