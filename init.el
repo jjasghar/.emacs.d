@@ -7,6 +7,8 @@
 
 ;; Turn off the useless toolbar
 (tool-bar-mode -1)
+;; Turn off the scroll bar
+(scroll-bar-mode -1)
 ;; Show paren mode (http://www.emacswiki.org/emacs/ShowParenMode)
 (show-paren-mode 1)
 ;; backup files because well backupfiles
@@ -45,6 +47,9 @@
 
 ;; make a larger buffer for M-x shell
 (setq comint-buffer-maximum-size 10240)
+
+;; add the column line mode
+(setq column-number-mode t)
 
 ;; tack on flyspell to text
 (add-hook 'text-mode-hook 'flyspell-mode)
