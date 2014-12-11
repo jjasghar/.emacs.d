@@ -2,7 +2,7 @@
 ;; General Settings I like
 ;;
 
-(setq user-mail-address "jj@getchef.com")
+(setq user-mail-address "jj@chef.io")
 (setq user-full-name "JJ Asghar")
 
 ;; Turn off the useless toolbar
@@ -130,6 +130,7 @@
 (load "~/.emacs.d/my-flycheck")
 (load "~/.emacs.d/my-gitgutter")
 (load "~/.emacs.d/my-ido")
+(load "~/.emacs.d/my-ruby")
 (load "~/.emacs.d/my-twit")
 (load "~/.emacs.d/my-orgmode")
 (load "~/.emacs.d/webjump")
