@@ -94,8 +94,18 @@
   (switch-to-buffer (get-buffer-create "*scratch*"))
   (lisp-interaction-mode))
 
-
 (defun insert-epoch () (interactive)
     (insert (shell-command-to-string "echo -n $(date +%s)")))
 (defun insert-current-date () (interactive)
     (insert (shell-command-to-string "echo -n $(date +%Y-%m-%d)")))
+
+(defun my/insert-line-before (times)
+  "insterts a newline above the line containing
+   the cursor."
+  (interactive "p")
+  (save-excursion
+    (move-beginning-of-line 1)
+    (newline times)))
+
+(global-set-key (kbd "C-S-o")
+                'my/insert-line-before)
