@@ -98,6 +98,11 @@
 ;; introduced to zenburn (11/25/2014) I think i like it more
 (load-theme 'zenburn t)
 
+;; i liked the idea of different highlighted color
+(custom-set-faces
+ '(region ((t (:inherit nil :background "RoyalBlue4")))))
+
+
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
 

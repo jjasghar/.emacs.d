@@ -24,9 +24,6 @@
 ;; write out a region i've marked
 (global-set-key (kbd "C-x w") 'write-region)
 
-;; google-this
-(global-set-key (kbd "C-c M-g") 'google-this)
-
 ;; magit-status
 (global-set-key (kbd "C-c g") 'magit-status)
 
