@@ -129,10 +129,12 @@
 (load "~/.emacs.d/my-defined-fuctions")
 (load "~/.emacs.d/my-flycheck")
 (load "~/.emacs.d/my-gitgutter")
+(load "~/.emacs.d/my-helm")
 (load "~/.emacs.d/my-ido")
 (load "~/.emacs.d/my-ruby")
 (load "~/.emacs.d/my-twit")
 (load "~/.emacs.d/my-orgmode")
+(load "~/.emacs.d/my-yas")
 (load "~/.emacs.d/webjump")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

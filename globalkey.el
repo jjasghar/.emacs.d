@@ -4,9 +4,6 @@
 ;; dash-at-point
 (global-set-key "\C-cd" 'dash-at-point)
 
-;; smex
-(global-set-key "\M-x" 'smex)
-
 ;; run spell check on word
 (global-set-key (kbd "M-s M-s") 'ispell-word)
 
