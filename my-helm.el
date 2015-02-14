@@ -1,3 +1,6 @@
+(require 'helm)
+(require 'helm-config)
+
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
 ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
@@ -26,3 +29,6 @@
 
 ;; helm-google-suggest
 (global-set-key (kbd "C-c M-g") 'helm-google-suggest)
+
+;; i need tab complete
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
