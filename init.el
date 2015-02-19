@@ -134,6 +134,7 @@
 (load "~/.emacs.d/my-defined-fuctions")
 (load "~/.emacs.d/my-flycheck")
 (load "~/.emacs.d/my-gitgutter")
+(load "~/.emacs.d/my-guide-key")
 (load "~/.emacs.d/my-helm")
 (load "~/.emacs.d/my-ido")
 (load "~/.emacs.d/my-ruby")
