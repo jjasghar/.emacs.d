@@ -28,11 +28,12 @@
 (setq show-trailing-whitespace t)
 
 ;; fixing up the scratch buffer
-(setq initial-major-mode 'ruby-mode)
+(setq initial-major-mode 'lisp-mode)
 (setq initial-scratch-message "\
-# This buffer is for notes you don't want to save, and for Ruby code.
-# If you want to create a file, visit that file with C-x C-f,
-# then enter the text in that file's own buffer.")
+#
+# Scratch Scratch Scratch
+#
+# ")
 
 ;; fix Warning(undo): Buffer Buffer list
 (add-hook 'Buffer-menu-mode-hook 'buffer-disable-undo)
@@ -100,6 +101,10 @@
 
 ;; i liked the idea of different highlighted color
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(region ((t (:inherit nil :background "RoyalBlue4")))))
 
 
@@ -132,6 +137,7 @@
 (load "~/.emacs.d/newsticker")
 (load "~/.emacs.d/my-abbrevs")
 (load "~/.emacs.d/my-defined-fuctions")
+(load "~/.emacs.d/my-dired")
 (load "~/.emacs.d/my-flycheck")
 (load "~/.emacs.d/my-gitgutter")
 (load "~/.emacs.d/my-guide-key")
@@ -155,6 +161,8 @@
     (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services smiley stamp spelling track)))
  '(git-gutter:added-sign "+")
  '(git-gutter:deleted-sign "-")
- '(org-agenda-files (quote ("~/org/emacs.org")))
+ '(org-agenda-files
+   (quote
+    ("/Users/jasghar/org/notes.org" "/Users/jasghar/org/blah_priorites_date_.org" "/Users/jasghar/org/caching_project.org" "/Users/jasghar/org/docker.org" "/Users/jasghar/org/emacs.org" "/Users/jasghar/org/freenode.org" "/Users/jasghar/org/gem.org" "/Users/jasghar/org/guenter.org" "/Users/jasghar/org/hanlon.org" "/Users/jasghar/org/index.org" "/Users/jasghar/org/ipxe.org" "/Users/jasghar/org/irc.org" "/Users/jasghar/org/kitchen-cluster.org" "/Users/jasghar/org/landing_page_meeting.org" "/Users/jasghar/org/maas.org" "/Users/jasghar/org/magit.org" "/Users/jasghar/org/notes.nov3014.org" "/Users/jasghar/org/openbay_openstack.org" "/Users/jasghar/org/openstack_documentation.org" "/Users/jasghar/org/openstack_priorities.20150108.org" "/Users/jasghar/org/pry.org" "/Users/jasghar/org/rfc-for-upstart.org" "/Users/jasghar/org/singlestack.org" "/Users/jasghar/org/software_licences.org" "/Users/jasghar/org/statusmeetings.org" "/Users/jasghar/org/test.org" "/Users/jasghar/org/test_bable.org")))
  '(send-mail-function nil)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
