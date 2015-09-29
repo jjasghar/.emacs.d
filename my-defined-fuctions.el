@@ -130,3 +130,23 @@
        (insert "require 'pry'; binding.pry"))
 
 (global-set-key "\C-c\C-p" 'insert-require-pry-binding-pry)
+
+;; a better whitespace checker http://www.reddit.com/r/emacs/comments/33vah8/whitespace_mode/
+(defun better-whitespace ()
+  (interactive)
+  (whitespace-mode -1)
+  (let ((ws-small '(face lines-tail))
+        (ws-big '(face tabs spaces trailing lines-tail space-before-tab
+                       newline indentation empty space-after-tab space-mark
+                       tab-mark newline-mark)))
+    (if (eq whitespace-style ws-small)
+        (setq whitespace-style ws-big)
+      (setq whitespace-style ws-small)))
+  (whitespace-mode 1))
+(define-key prog-mode-map (kbd "C-c w") 'better-whitespace)
+
+
+;; helm-company choose from company completions with C-:
+(with-eval-after-load 'company
+  (define-key company-mode-map (kbd "C-:") 'helm-company)
+  (define-key company-active-map (kbd "C-:") 'helm-company))

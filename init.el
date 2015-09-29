@@ -20,7 +20,7 @@
   version-control t
 )
 ;; default to text mode
-(setq-default major-mode 'text-mode)
+(setq-default major-mode 'org-mode)
 ;; blink instead of beep
 (setq visible-bell t)
 
@@ -33,7 +33,8 @@
 #
 # Scratch Scratch Scratch
 #
-# ")
+#
+")
 
 ;; fix Warning(undo): Buffer Buffer list
 (add-hook 'Buffer-menu-mode-hook 'buffer-disable-undo)
@@ -55,7 +56,16 @@
 ;; tack on flyspell to text
 (add-hook 'text-mode-hook 'flyspell-mode)
 (setq ispell-program-name "aspell"
-  ispell-extra-args '("--sug-mode=ultra"))
+      ispell-extra-args '("--sug-mode=ultra"))
+(dolist (mode '(emacs-lisp-mode-hook
+                inferior-lisp-mode-hook
+                ruby-mode-hook
+                python-mode-hook
+                js-mode-hook
+                chef-mode-hook))
+  (add-hook mode
+            '(lambda ()
+               (flyspell-prog-mode))))
 
 ;; Lorem-ipsum stuff
 (autoload 'Lorem-ipsum-insert-paragraphs "lorem-ipsum" "" t)
@@ -97,7 +107,18 @@
 ;; (load-theme 'solarized-dark t)
 
 ;; introduced to zenburn (11/25/2014) I think i like it more
-(load-theme 'zenburn t)
+;; (load-theme 'zenburn t)
+
+;; introduced to Spolsky (06/15/2015)
+(load-theme 'spolsky t)
+
+;; powerline because it's pretty
+(require 'powerline)
+(powerline-center-theme)
+
+;; i need tab complete to work in ansi-term
+(add-hook 'term-mode-hook (lambda()
+                            (setq yas-dont-activate t)))
 
 ;; i liked the idea of different highlighted color
 (custom-set-faces
@@ -121,12 +142,18 @@
                     :weight 'normal
                     :width 'normal)
 
-
-
 (require 'ansi-color)
 
 ;; enabling projectile mode https://github.com/bbatsov/projectile
-(projectile-global-mode)
+;; (projectile-global-mode)
+
+;; eldoc mode
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+
+;; turn on company-mode
+(add-hook 'after-init-hook 'global-company-mode)
 
 (load "~/.emacs.d/defined-aliases")
 (load "~/.emacs.d/erc")
@@ -142,7 +169,6 @@
 (load "~/.emacs.d/my-gitgutter")
 (load "~/.emacs.d/my-guide-key")
 (load "~/.emacs.d/my-helm")
-(load "~/.emacs.d/my-ido")
 (load "~/.emacs.d/my-ruby")
 (load "~/.emacs.d/my-twit")
 (load "~/.emacs.d/my-orgmode")
@@ -155,7 +181,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "0c29db826418061b40564e3351194a3d4a125d182c6ee5178c237a7364f0ff12" "9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
  '(erc-modules
    (quote
     (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services smiley stamp spelling track)))

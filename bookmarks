@@ -2,9 +2,39 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-capture-last-stored"
+(("org-capture-last-stored-marker"
  (filename . "~/org/notes.org")
- (front-context-string . "** TODO this is ")
- (rear-context-string . "2014-09-24 Wed]\n")
- (position . 91))
+ (front-context-string . "** TODO hacking ")
+ (rear-context-string . "= tempest_admin\n")
+ (position . 7599))
+("org-refile-last-stored"
+ (filename . "~/org/notes.org")
+ (front-context-string . "** TODO hacking ")
+ (rear-context-string . "= tempest_admin\n")
+ (position . 7599))
+("floobits-thomascate-11754"
+ (filename . "~/repo/lita-motivate/lib/lita/handlers/motivate.rb")
+ (front-context-string . "module Lita\n  mo")
+ (rear-context-string)
+ (position . 1))
+("floobits-dosman711-11826"
+ (filename . "~/repo/lita-motivate/lib/lita/handlers/motivate.rb")
+ (front-context-string . "module Lita\n  mo")
+ (rear-context-string)
+ (position . 1))
+("floobits-dosman711-11745"
+ (filename . "~/repo/lita-motivate/spec/lita/handlers/motivate_spec.rb")
+ (front-context-string . "    pending\n    ")
+ (rear-context-string . "ve to billy\" do\n")
+ (position . 433))
+("floobits-jjasghar-11746"
+ (filename . "~/repo/lita-motivate/lib/lita/handlers/motivate.rb")
+ (front-context-string . "module Lita\n  mo")
+ (rear-context-string)
+ (position . 1))
+("org-capture-last-stored"
+ (filename . "~/org/todo.org")
+ (front-context-string . "** TODO aoeu \n  ")
+ (rear-context-string . "9-21 Mon 14:43]\n")
+ (position . 6426))
 )

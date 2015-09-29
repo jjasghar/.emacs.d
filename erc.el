@@ -1,4 +1,3 @@
-
 ;;
 ;; erc
 ;;
@@ -14,7 +13,7 @@
       )))
 
 (setq erc-autojoin-channels-alist '(("freenode.net" "#openstack-chef" "#chef" "#chef-hacking" "#c6h12o6" "#emacs" "#austindevops"
-                                     "#dwarffortress" "#reddit-diabetes" "#reddit-diabetes-ops" "#openstack-operators")
+                                     "#dwarffortress" "#reddit-diabetes" "#openstack-operators")
                                     ("paraphysics.net" "#eztv")))
 ;; if you’d like to join the same channels on any server
 ;; (setq erc-autojoin-channels-alist '((".*" "#help" "#emacs")))

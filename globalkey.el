@@ -8,7 +8,7 @@
 (global-set-key (kbd "M-s M-s") 'ispell-word)
 
 ;; comment region
-(global-set-key "\C-cc" 'comment-region)
+(global-set-key "\C-c#" 'comment-region)
 (global-set-key "\C-cu" 'uncomment-region)
 
 ;; indent-region
@@ -28,7 +28,7 @@
 (global-set-key (kbd "C-c g") 'magit-status)
 
 ;; shortcut for shell
-(global-set-key (kbd "C-c s") 'shell)
+(global-set-key (kbd "C-c s") 'ansi-term)
 
 ;; buffer resize http://www.emacswiki.org/emacs/WindowResize
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
@@ -38,3 +38,8 @@
 
 ;; toggle horizontal and vertial splits
 (global-set-key (kbd "C-x |") 'toggle-window-split)
+
+;; https://github.com/magnars/fold-this.el
+(global-set-key (kbd "C-c C-f") 'fold-this-all)
+(global-set-key (kbd "C-c C-F") 'fold-this)
+(global-set-key (kbd "C-c M-f") 'fold-this-unfold-all)
