@@ -1,12 +1,20 @@
-;; orgmode
+#+TITLE:  org-mode Configuration Settings
+#+AUTHOR: JJ Asghar
+#+EMAIL:  jjasghar@gmail.com
+
+* General
+
+#+begin_src emacs-lisp :tangle yes
 (setq org-log-done 'time)
 (setq org-default-notes-file (concat "~/org/todo.org"))
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-export-coding-system 'utf-8)
 (setq org-export-backends (quote (ascii html icalendar latex md)))
 (setq org-startup-indented t)
+#+end_src
 
-;; org-capture templates
+* org-capture templates
+#+begin_src emacs-lisp :tangle yes
 (setq org-capture-templates
       '(("t"              ; hotkey
          "TODO list item" ; name
@@ -30,16 +38,40 @@
          (file+headline org-default-notes-file "links")
          (file "~/.emacs.d/org-templates/links.orgcaptmpl"))
         ))
+#+end_src
 
+* org-todo-keywords
+
+#+begin_src emacs-lisp :tangle yes
 (setq org-todo-keywords
       '((sequence "TODO(t)" "BLOCKED(b)" "INPROGRESS(i)" "|" "DONE(d)")
         (sequence "KNOWNISSUE(k)" "|" "CANCELED(c)")
         ))
+#+end_src
 
+This is to changed the colors of the different keywords, still working on what I want.
 
-;; for https://github.com/rlister/org-present
-;; M-x org-present
-;; C-c C-q for quit (which will return you back to vanilla org-mode)
+#+begin_src emacs-lisp :tangle yes
+(setq org-todo-keyword-faces
+      '(("TODO" . (:foreground "DarkOrange1" :weight bold))
+        ("BLOCKED" . (:foreground "sea green"))
+        ("DONE" . (:foreground "light sea green"))
+        ("CANCELLED" . (:foreground "forest green"))
+        ("TASK" . (:foreground "blue"))))
+#+end_src
+
+* org-present
+
+took from: https://github.com/rlister/org-present
+
+#+BEGIN_SRC  sh :tangle no
+M-x org-present
+C-c C-q for quit (which will return you back to vanilla org-mode)
+#+END_SRC
+
+These are the main settings:
+
+#+begin_src emacs-lisp :tangle yes
 (eval-after-load "org-present"
   '(progn
      (add-hook 'org-present-mode-hook
@@ -57,7 +89,11 @@
 
 ;; fontify code in code blocks
 (setq org-src-fontify-natively t)
+#+end_src
 
+* org-babel
+
+#+begin_src emacs-lisp :tangle yes
 (org-babel-do-load-languages
  'org-babel-load-languages
  '(
@@ -71,13 +107,22 @@
    (sqlite . t)
    (perl . t)
    ))
+#+end_src
 
+* my main notes.org settings
+
+#+begin_src emacs-lisp :tangle yes
 ;; shortcut to notes.org
 (global-set-key (kbd "C-c n")
                 (lambda () (interactive) (find-file "~/org/notes.org")))
 (global-set-key (kbd "C-c t")
                 (lambda () (interactive) (find-file "~/org/todo.org")))
+#+end_src
 
+* org-capture frame
+I created a [[https://github.com/jjasghar/alfred-org-capture][alfred plugin]] to help with this too.
+
+#+begin_src emacs-lisp :tangle yes
 (defun make-orgcapture-frame ()
   "Create a new frame and run org-capture."
   (interactive)
@@ -87,3 +132,4 @@
                 ))
   (select-frame-by-name "remember")
   (org-capture))
+#+end_src

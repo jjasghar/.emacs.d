@@ -1,0 +1,11 @@
+#+TITLE:  dired Configuration Settings
+#+AUTHOR: JJ Asghar
+#+EMAIL:  jjasghar@gmail.com
+
+* General
+
+dired has a ton of configuration settings. I started down this path, and this is where I'll store em.
+
+#+begin_src emacs-lisp :tangle yes
+;;(define-key dired-mode-map "c" 'find-file)
+#+end_src

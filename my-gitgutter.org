@@ -1,5 +1,18 @@
-;; git-gutter mode
+#+TITLE:  git-gutter Configuration Settings
+#+AUTHOR: JJ Asghar
+#+EMAIL:  jjasghar@gmail.com
+
+* git-gutter mode
+
+Make sure that [[https://github.com/syohex/emacs-git-gutter][git-gutter]] is setup for ruby-mode
+
+#+begin_src emacs-lisp :tangle yes
 (add-hook 'ruby-mode-hook 'git-gutter-mode)
+#+end_src
+
+Some random variables and such that I like.
+
+#+begin_src emacs-lisp :tangle yes
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -9,3 +22,4 @@
  '(git-gutter:deleted-sign "-")
  '(send-mail-function nil)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
+#+end_src

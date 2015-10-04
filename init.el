@@ -22,7 +22,8 @@
 ;; default to text mode
 (setq-default major-mode 'org-mode)
 ;; blink instead of beep
-(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+;; (setq visible-bell t)
 
 ;; show that damn whitespace
 (setq show-trailing-whitespace t)
@@ -144,9 +145,6 @@
 
 (require 'ansi-color)
 
-;; enabling projectile mode https://github.com/bbatsov/projectile
-;; (projectile-global-mode)
-
 ;; eldoc mode
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
@@ -164,15 +162,15 @@
 (load "~/.emacs.d/newsticker")
 (load "~/.emacs.d/my-abbrevs")
 (load "~/.emacs.d/my-defined-fuctions")
-(load "~/.emacs.d/my-dired")
+(org-babel-load-file "~/.emacs.d/my-dired.org")
 (load "~/.emacs.d/my-flycheck")
-(load "~/.emacs.d/my-gitgutter")
+(org-babel-load-file "~/.emacs.d/my-gitgutter.org")
 (load "~/.emacs.d/my-guide-key")
 (load "~/.emacs.d/my-helm")
-(load "~/.emacs.d/my-ruby")
+(org-babel-load-file "~/.emacs.d/my-ruby.org")
 (load "~/.emacs.d/my-twit")
-(load "~/.emacs.d/my-orgmode")
-(load "~/.emacs.d/my-yas")
+(org-babel-load-file "~/.emacs.d/my-orgmode.org")
+(org-babel-load-file "~/.emacs.d/my-yas.org")
 (load "~/.emacs.d/webjump")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
