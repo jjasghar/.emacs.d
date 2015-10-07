@@ -1,6 +1,14 @@
-;; markdown major mode
+#+TITLE:  Markdown Settings
+#+AUTHOR: JJ Asghar
+#+EMAIL:  jjasghar@gmail.com
+
+* General
+Theses are configurations for markdown. I like markdown a lot so that's why it's so aggressive.
+
+#+begin_src emacs-lisp :tangle yes
 (autoload 'markdown-mode "markdown-mode"
    "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+#+end_src

@@ -1,6 +1,12 @@
-;; OSX SETTINGS
+#+TITLE:  Mac OSX Configuration Settings
+#+AUTHOR: JJ Asghar
+#+EMAIL:  jjasghar@gmail.com
 
-;; messing with fonts for macs
+* General
+These are some Mac OSX settings that I've found I need to use for Emacs. YMMV but so far this does what I want.
+
+* Fonts for macs
+#+begin_src emacs-lisp :tangle yes
 (when (eq system-type 'darwin)
 
   ;; default Latin font (e.g. Consolas)
@@ -20,12 +26,18 @@
 
   ;; you may want to add different for other charset in this way.
 )
+#+end_src
 
-;; homebrew fix
+* Homebrew Fix
+
+#+begin_src emacs-lisp :tangle yes
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq exec-path (append exec-path '("/usr/local/bin")))
-;;
+#+end_src
 
+* Mac keyboard settings
+
+#+begin_src emacs-lisp :tangle yes
 (setq default-frame-alist
       '((top . 25) (left . 1)
         (width . 125) (height . 35)))
@@ -34,6 +46,10 @@
 (setq mac-command-key-is-meta t)
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier nil)
+#+end_src
 
- ;; keep OSX from opening more windows
+* Keep OSX from opening more windows
+
+#+begin_src emacs-lisp :tangle yes
 (setq ns-pop-up-frames nil)
+#+end_src

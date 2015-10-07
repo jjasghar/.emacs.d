@@ -9,6 +9,7 @@ yas, is by far the most important plugin I use. snippets are crucial to maintain
 * enabling and configuration
 
 This enables yas throughout global mode, this is awesome, but can be annoying sometimes.
+
 #+begin_src emacs-lisp :tangle yes
 (require 'yasnippet)
 (yas-global-mode 1)
