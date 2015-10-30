@@ -1,0 +1,27 @@
+#+TITLE:  magit plugins and configs
+#+AUTHOR: JJ Asghar
+#+EMAIL:  jjasghar@gmail.com
+
+* General
+These are some magit plugins and configuration options.
+
+* magit-gerrit
+Adam Spiers suggested that I take a look at [[https://github.com/terranpro/magit-gerrit][magit-gerrit]] I do spend all my time in gerrit ;)
+
+#+begin_src emacs-lisp :tangle yes
+(require 'magit-gerrit)
+
+;; if remote url is not using the default gerrit port and
+;; ssh scheme, need to manually set this variable
+(setq-default magit-gerrit-ssh-creds "jj")
+
+;; if necessary, use an alternative remote instead of 'origin'
+(setq-default magit-gerrit-remote "gerrit")
+#+end_src
+* magit-gh-pulls
+Adam Spiers suggested that I take a look at [[https://github.com/sigma/magit-gh-pulls][magit-gh-pulls]] I do spend all my time in github ;)
+
+#+begin_src emacs-lisp :tangle yes
+(require 'magit-gh-pulls)
+(add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+#+end_src

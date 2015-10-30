@@ -45,7 +45,7 @@ This just seemed like a logical key binding. I almost never use it though.
 (global-set-key "\C-ci" 'indent-region)
 #+end_src
 
-**  text size
+** text size
 It's nice to be able to make the text size bigger and smaller. On a Mac it's =Command-+= so this seemed logical.
 
 #+begin_src emacs-lisp :tangle yes

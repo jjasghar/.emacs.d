@@ -166,6 +166,7 @@
 (load "~/.emacs.d/my-guide-key")
 (load "~/.emacs.d/my-helm")
 (org-babel-load-file "~/.emacs.d/my-mac-emacs-settings.org")
+(org-babel-load-file "~/.emacs.d/my-magit.org")
 (org-babel-load-file "~/.emacs.d/my-markdown-settings.org")
 (org-babel-load-file "~/.emacs.d/my-ruby.org")
 (load "~/.emacs.d/my-twit")
