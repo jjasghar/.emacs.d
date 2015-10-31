@@ -1,7 +1,15 @@
-;;
-;; erc
-;;
+#+TITLE:  erc Configuration Settings
+#+AUTHOR: JJ Asghar
+#+EMAIL:  jjasghar@gmail.com
 
+* General
+
+ERC is a built in IRC client to emacs. Here are some configurations I've come up with to help make my life easier.
+* Jump to ERC
+
+This following function either switches to the erc buffer or starts up erc for you.
+
+#+begin_src emacs-lisp :tangle yes
 (defun erc-start-or-switch ()
   "Connect to ERC, or switch to last active buffer"
   (interactive)
@@ -11,29 +19,53 @@
     (when (y-or-n-p "Start ERC? ") ;; no: maybe start ERC
       (erc :server "irc.freenode.net" :port 6667 :nick "j^2" :full-name "JJ Asghar")
       )))
+#+end_src
+* Channel management
+** Joining Channels
+This is a selection of channels on =freenode= and =paraphysics= I like to join.
 
+#+begin_src emacs-lisp :tangle yes
 (setq erc-autojoin-channels-alist '(("freenode.net" "#openstack-chef" "#chef" "#chef-hacking" "#c6h12o6" "#emacs" "#austindevops"
                                      "#dwarffortress" "#reddit-diabetes" "#openstack-operators")
                                     ("paraphysics.net" "#eztv")))
-;; if you’d like to join the same channels on any server
+#+end_src
+
+If you’d like to join the same channels on any server:
+
+#+begin_src emacs-lisp :tangle yes
 ;; (setq erc-autojoin-channels-alist '((".*" "#help" "#emacs")))
+#+end_src
 
+** Muting parts of the channel
 
-;; check channels
+#+begin_src emacs-lisp :tangle yes
 (erc-track-mode t)
+#+end_src
+No one likes parts and quits and all.
+
+#+begin_src emacs-lisp :tangle yes
 (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
 
                                  "324" "329" "332" "333" "353" "477"))
-;; don't show any of this
 (setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
+#+end_src
 
-;; a nice filler
-;;[12:34] <user-one> the quick brown fox jumps over the lazy dog.  the quick
-;;       + brown fox jumps over the lazy dog
+
+** Formatting the buffer
+
+#+BEGIN_SRC :tangle no
+[12:34] <user-one> the quick brown fox jumps over the lazy dog.  the quick
+       + brown fox jumps over the lazy dog
+#+END_SRC
+
+#+begin_src emacs-lisp :tangle yes
 (setq erc-timestamp-format "[%H:%M] ")
  (setq erc-fill-prefix "      + ")
+#+END_SRC
 
-;; fill width
+Fill width so it looks better.
+
+#+begin_src emacs-lisp :tangle yes
 (make-variable-buffer-local 'erc-fill-column)
  (add-hook 'window-configuration-change-hook
 	   '(lambda ()
@@ -44,8 +76,12 @@
 		     (set-buffer buffer)
 		     (when (eq major-mode 'erc-mode)
 		       (setq erc-fill-column (- (window-width w) 2)))))))))
+#+END_SRC
 
-;; erc growl
+* erc growl
+I use a mac, and growl helps notify me on when I'm tabbed out of emacs.
+
+#+begin_src emacs-lisp :tangle yes
 (defvar growlnotify-command (executable-find "/usr/local/bin/growlnotify") "The path to growlnotify")
 
 (defun growl (title message)
@@ -71,12 +107,23 @@
      )))
 
 (add-hook 'erc-text-matched-hook 'my-erc-hook)
+#+END_SRC
 
+* Password
+
+Create a file with something like the following
+
+#+begin_src  :tangle no
+(setq freenode-nickone-pass "mynickservpass1")
+(setq freenode-nicktwo-pass "mynickservpass2")
+(setq dalnet-pass "mynickservpass3")
+#+END_SRC
+
+The following will load up the file and use it as your authentication for the irc servers.
+
+#+begin_src emacs-lisp :tangle yes
 (load "~/.ercpass")
-;; an example:
-;;(setq freenode-nickone-pass "mynickservpass1")
-;;(setq freenode-nicktwo-pass "mynickservpass2")
-;;(setq dalnet-pass "mynickservpass3")
+
 (require 'erc-services)
 (erc-services-mode 1)
 (setq erc-prompt-for-nickserv-password nil)
@@ -84,7 +131,11 @@
           `((freenode     (("j^2" . ,freenode-nickone-pass)
                            ("nick-two" . ,freenode-nicktwo-pass)))
             (DALnet       (("nickname" . ,dalnet-pass)))))
+#+END_SRC
 
+* Global switch to ERC
 
-;; switch to ERC with Ctrl+c e
-(global-set-key (kbd "C-c e") 'erc-start-or-switch) ;; ERC
+With this you can switch to ERC with =C-c e=.
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "C-c e") 'erc-start-or-switch)
+#+END_SRC
