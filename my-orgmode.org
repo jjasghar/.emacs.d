@@ -133,3 +133,29 @@ I created a [[https://github.com/jjasghar/alfred-org-capture][alfred plugin]] to
   (select-frame-by-name "remember")
   (org-capture))
 #+end_src
+* Emacs auto-completion for non-programmers
+
+Stolen from [[http://blog.binchen.org/posts/emacs-auto-completion-for-non-programmers.html][here]].
+#+begin_src emacs-lisp :tangle yes
+(require 'company)
+
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; Don't enable company-mode in below major modes, OPTIONAL
+(setq company-global-modes '(not eshell-mode comint-mode erc-mode rcirc-mode))
+
+(defun org-mode-hook-setup ()
+  ;; make `company-backends' local is critcal
+  ;; or else, you will have completion in every major mode, that's very annoying!
+  (make-local-variable 'company-backends)
+
+  ;; company-ispell is the plugin to complete words
+  (add-to-list 'company-backends 'company-ispell)
+
+  ;; OPTIONAL, if `company-ispell-dictionary' is nil, `ispell-complete-word-dict' is used
+  ;;  but I prefer hard code the dictionary path. That's more portable.
+  (setq company-ispell-dictionary (file-truename "~/.emacs.d/misc/english-words.txt")))
+
+(add-hook 'org-mode-hook 'org-mode-hook-setup)
+
+#+end_src

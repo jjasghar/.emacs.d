@@ -1,0 +1,73 @@
+#+TITLE:  helm Configuration Settings
+#+AUTHOR: JJ Asghar
+#+EMAIL:  jjasghar@gmail.com
+* General
+
+These are some settings to make helm work inside of emacs. It takes a bit to get used to but well worth the time.
+
+* Activate helm
+
+After installing helm, this is how to turn it on.
+
+#+begin_src emacs-lisp :tangle yes
+(require 'helm)
+(require 'helm-config)
+#+end_src
+
+* Change some default emacs settings to helm
+
+- The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+- Changed to "C-c h". Note: We must set "C-c h" globally, because we
+- cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-unset-key (kbd "C-x c"))
+#+end_src
+
+- I need tab complete, by default it leverages fuzzy matching for everything
+
+#+begin_src emacs-lisp :tangle yes
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+#+end_src
+
+** helm-M-x
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key "\M-x" 'helm-M-x)
+#+end_src
+
+** show the helm kill ring
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+#+end_src
+
+** helm-buffer-list
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "C-x b") 'helm-mini)
+#+end_src
+
+** helm-find-files
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+#+end_src
+
+** fuzzy matching
+
+#+begin_src emacs-lisp :tangle yes
+(setq helm-buffers-fuzzy-matching           t
+      helm-recentf-fuzzy-match              t
+      helm-split-window-in-side-p           t )
+
+;; optional fuzzy matching for helm-M-x
+(setq helm-M-x-fuzzy-match t)
+#+end_src
+
+** helm-google-suggest
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "C-c M-g") 'helm-google-suggest)
+#+end_src

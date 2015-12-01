@@ -28,6 +28,15 @@ These are some Mac OSX settings that I've found I need to use for Emacs. YMMV bu
 )
 #+end_src
 
+I have also added a whitespace checker, this probably shouldn't go here, but I
+haven't found a good place.
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+(require 'whitespace)
+ (setq whitespace-style '(face empty tabs lines-tail trailing))
+(global-whitespace-mode t)
+#+END_SRC
+
 * Homebrew Fix
 
 #+begin_src emacs-lisp :tangle yes

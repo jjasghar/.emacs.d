@@ -6,6 +6,12 @@
 
 yas, is by far the most important plugin I use. snippets are crucial to maintaining sanity with all the technologies out there.
 
+Adding [[https://capitaomorte.github.io/yasnippet/faq.html][to fix ruby mode]]
+
+#+begin_src emacs-lisp :tangle yes
+(add-hook 'ruby-mode-hook 'yas-minor-mode-on)
+#+end_src
+
 * enabling and configuration
 
 This enables yas throughout global mode, this is awesome, but can be annoying sometimes.
