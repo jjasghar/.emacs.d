@@ -8,7 +8,6 @@ These are some globalkey bindings I've gotten used to or want to have. I bet the
 without needing to to =M-x blah=.
 
 * Web key bindings
-
 ** browse-url
 I like the idea of being able to hit =C-c b= on a URL and have it open in my browser.
 
@@ -25,11 +24,28 @@ I use dash pretty regulary on a Mac, this way I can look something up with a key
 #+end_src
 
 ** Spell check
+Auto-load =ispell-get-word=
+
+#+begin_src emacs-lisp :tangle yes
+(autoload 'ispell-get-word "ispell")
+#+end_src
+
 I can never seem to remember what the spell check is, but =M-s M-s= seemed quick enough for me.
 
 #+begin_src emacs-lisp :tangle yes
 (global-set-key (kbd "M-s M-s") 'ispell-word)
 #+end_src
+
+And lookup words in http://en.wiktionary.org/
+
+#+begin_src emacs-lisp :tangle yes
+(defun lookup-word (word)
+  (interactive (list (save-excursion (car (ispell-get-word nil)))))
+  (browse-url (format "http://en.wiktionary.org/wiki/%s" word)))
+
+(global-set-key (kbd "M-#") 'lookup-word)
+#+end_src
+
 
 ** [Comment|Uncomment] region
 While I'm debugging the best think I can do is Comment out or Uncomment out quickly to figure out what's going wrong.
@@ -86,4 +102,10 @@ I like splitting frames, this way i can flip em.
 
 #+begin_src emacs-lisp :tangle yes
 (global-set-key (kbd "C-x |") 'toggle-window-split)
+#+end_src
+** wiki-summary
+I found wiki-summary to pull summarys from wikipedia. Gotta admit that's pretty neat.
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "C-c w") 'wiki-summary)
 #+end_src
