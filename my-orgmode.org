@@ -20,7 +20,7 @@
          "TODO list item" ; name
          entry            ; type
          ; heading type and title
-         (file+headline org-default-notes-file "Uncategorized TODOs")
+         (file+headline org-default-notes-file "TODOs")
          "*** TODO %? \n %i Captured at %U \n %i %a") ; template
         ("j"
          "Journal entry"
@@ -158,4 +158,25 @@ Stolen from [[http://blog.binchen.org/posts/emacs-auto-completion-for-non-progra
 
 (add-hook 'org-mode-hook 'org-mode-hook-setup)
 
+#+end_src
+* org-reveal
+This section is for org-reveal. https://github.com/yjwen/org-reveal/
+
+#+begin_src emacs-lisp :tangle yes
+(setq org-reveal-root "file:////Users/jasghar/repo/reveal.js")
+#+end_src
+
+
+* org-agenda
+This section is for org-agenda.
+
+#+begin_src emacs-lisp :tangle yes
+(setq org-agenda-files (list "~/org/chef.org"
+                             "~/org/emacs.org"
+                             "~/org/freebsd.org"
+                             "~/org/model-t.org"
+                             "~/org/videos.org"
+                             "~/org/todo.org"
+                             "~/org/work.org"
+))
 #+end_src
