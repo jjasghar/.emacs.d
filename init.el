@@ -8,7 +8,7 @@
 ;; Turn off the useless toolbar
 (tool-bar-mode -1)
 ;; Turn off the scroll bar
-(scroll-bar-mode -1)
+;;(scroll-bar-mode -1)
 ;; Show paren mode (http://www.emacswiki.org/emacs/ShowParenMode)
 (show-paren-mode 1)
 ;; backup files because well backupfiles
@@ -164,8 +164,10 @@
 (load "~/.emacs.d/my-flycheck")
 (org-babel-load-file "~/.emacs.d/my-gitgutter.org")
 (org-babel-load-file "~/.emacs.d/my-globalkey.org")
+(org-babel-load-file "~/.emacs.d/my-gnus.org")
 (load "~/.emacs.d/my-guide-key")
 (org-babel-load-file "~/.emacs.d/my-helm.org")
+(org-babel-load-file "~/.emacs.d/my-javascript.org")
 (org-babel-load-file "~/.emacs.d/my-mac-emacs-settings.org")
 (org-babel-load-file "~/.emacs.d/my-magit.org")
 (org-babel-load-file "~/.emacs.d/my-markdown-settings.org")
