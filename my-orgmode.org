@@ -175,8 +175,9 @@ This section is for org-agenda.
                              "~/org/emacs.org"
                              "~/org/freebsd.org"
                              "~/org/model-t.org"
-                             "~/org/videos.org"
+                             "~/org/ruby.org"
                              "~/org/todo.org"
+                             "~/org/videos.org"
                              "~/org/work.org"
 ))
 #+end_src

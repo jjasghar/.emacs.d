@@ -9,3 +9,10 @@ Here is a way to change the indentation for javascript-mode to 2. Stolen from: h
 #+begin_src emacs-lisp :tangle yes
 (setq js-indent-level 2)
 #+end_src
+
+Enable j2-mode for linting
+
+#+begin_src emacs-lisp :tangle yes
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'js-mode-hook 'js2-minor-mode)
+#+end_src
