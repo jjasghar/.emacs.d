@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do_install
+# key: do_install
+# --
+do_install() {
+$0
+}

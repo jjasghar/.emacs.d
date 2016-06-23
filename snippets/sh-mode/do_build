@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do_build
+# key: do_build
+# --
+do_build() {
+$0
+}

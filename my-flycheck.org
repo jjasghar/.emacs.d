@@ -1,0 +1,26 @@
+#+TITLE:  flycheck Configuration Settings
+#+AUTHOR: JJ Asghar
+#+EMAIL:  jjasghar@gmail.com
+
+* General
+
+These are my settings for flycheck
+
+Turn on flycheck
+
+#+begin_src emacs-lisp :tangle yes
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+#+end_src
+
+Set [[http://docs.openstack.org/developer/bashate/][Bashate]] for =sh-mode=
+
+#+BEGIN_SRC emacs-lisp :tangle
+(flycheck-define-generic-checker 'sh-bashate
+      "A Bash syntax and style checker based on pep8.
+See URL 'http://docs.openstack.org/developer/bashate/'."
+  :start #'bashate
+  :modes '(sh-mode))
+
+(add-to-list 'flycheck-checkers 'bashate)
+#+END_SRC

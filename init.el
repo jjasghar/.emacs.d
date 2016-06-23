@@ -108,10 +108,10 @@
 ;; (load-theme 'solarized-dark t)
 
 ;; introduced to zenburn (11/25/2014) I think i like it more
-;; (load-theme 'zenburn t)
+(load-theme 'zenburn t)
 
 ;; introduced to Spolsky (06/15/2015)
-(load-theme 'spolsky t)
+;; (load-theme 'spolsky t)
 
 ;; powerline because it's pretty
 (require 'powerline)
@@ -158,10 +158,9 @@
 (load "~/.emacs.d/newsticker")
 (load "~/.emacs.d/my-abbrevs")
 (load "~/.emacs.d/my-defined-fuctions")
-(load "~/.emacs.d/my-mu4e")
 (org-babel-load-file "~/.emacs.d/my-dired.org")
-(org-babel-load-file "~/.emacs.d/my-erc.org")
-(load "~/.emacs.d/my-flycheck")
+;; (org-babel-load-file "~/.emacs.d/my-erc.org"
+(org-babel-load-file "~/.emacs.d/my-flycheck.org")
 (org-babel-load-file "~/.emacs.d/my-gitgutter.org")
 (org-babel-load-file "~/.emacs.d/my-globalkey.org")
 (org-babel-load-file "~/.emacs.d/my-gnus.org")
@@ -183,7 +182,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "0c29db826418061b40564e3351194a3d4a125d182c6ee5178c237a7364f0ff12" "9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
+    ("40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "0c29db826418061b40564e3351194a3d4a125d182c6ee5178c237a7364f0ff12" "9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
  '(erc-modules
    (quote
     (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services smiley stamp spelling track)))
@@ -192,7 +191,13 @@
  '(org-agenda-files
    (quote
     ("/Users/jasghar/org/notes.org" "/Users/jasghar/org/blah_priorites_date_.org" "/Users/jasghar/org/caching_project.org" "/Users/jasghar/org/docker.org" "/Users/jasghar/org/emacs.org" "/Users/jasghar/org/freenode.org" "/Users/jasghar/org/gem.org" "/Users/jasghar/org/guenter.org" "/Users/jasghar/org/hanlon.org" "/Users/jasghar/org/index.org" "/Users/jasghar/org/ipxe.org" "/Users/jasghar/org/irc.org" "/Users/jasghar/org/kitchen-cluster.org" "/Users/jasghar/org/landing_page_meeting.org" "/Users/jasghar/org/maas.org" "/Users/jasghar/org/magit.org" "/Users/jasghar/org/notes.nov3014.org" "/Users/jasghar/org/openbay_openstack.org" "/Users/jasghar/org/openstack_documentation.org" "/Users/jasghar/org/openstack_priorities.20150108.org" "/Users/jasghar/org/pry.org" "/Users/jasghar/org/rfc-for-upstart.org" "/Users/jasghar/org/singlestack.org" "/Users/jasghar/org/software_licences.org" "/Users/jasghar/org/statusmeetings.org" "/Users/jasghar/org/test.org" "/Users/jasghar/org/test_bable.org")))
+ '(package-selected-packages
+   (quote
+    (git-gutter zenburn-theme gist markdown-mode markdown-mode+ org-bullets yasnippet try solarized-theme powerline magit-gh-pulls magit-gerrit helm guide-key flycheck company)))
  '(send-mail-function nil)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
 
 (setq-default flycheck-disabled-checkers '(chef-foodcritic))
+
+(add-to-list 'default-frame-alist '(font . "-outline-Monaco-normal-normal-normal-mono-11-*-*-*-c-*-iso8859-1" ))
+(set-face-attribute 'default t :font "-outline-Monaco-normal-normal-normal-mono-11-*-*-*-c-*-iso8859-1" )
