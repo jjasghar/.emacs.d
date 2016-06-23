@@ -159,13 +159,8 @@
 (load "~/.emacs.d/my-abbrevs")
 (load "~/.emacs.d/my-defined-fuctions")
 (org-babel-load-file "~/.emacs.d/my-dired.org")
-<<<<<<< HEAD
 ;; (org-babel-load-file "~/.emacs.d/my-erc.org"
 (org-babel-load-file "~/.emacs.d/my-flycheck.org")
-=======
-;; (org-babel-load-file "~/.emacs.d/my-erc.org")
-(load "~/.emacs.d/my-flycheck")
->>>>>>> 2de050ea89b49ad9d0d3b92f1538c30372380f6e
 (org-babel-load-file "~/.emacs.d/my-gitgutter.org")
 (org-babel-load-file "~/.emacs.d/my-globalkey.org")
 (org-babel-load-file "~/.emacs.d/my-gnus.org")
@@ -204,5 +199,5 @@
 
 (setq-default flycheck-disabled-checkers '(chef-foodcritic))
 
-(add-to-list 'default-frame-alist '(font . "-outline-Monaco-normal-normal-normal-mono-11-*-*-*-c-*-iso8859-1" ))
-(set-face-attribute 'default t :font "-outline-Monaco-normal-normal-normal-mono-11-*-*-*-c-*-iso8859-1" )
+(add-to-list 'default-frame-alist '(font . "-outline-Monaco-normal-normal-normal-mono-16-*-*-*-c-*-iso8859-1" ))
+(set-face-attribute 'default t :font "-outline-Monaco-normal-normal-normal-mono-16-*-*-*-c-*-iso8859-1" )
