@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: get
+# key: get
+# --
+get '$1' do
+  $0
+end
