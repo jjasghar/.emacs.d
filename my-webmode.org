@@ -1,0 +1,33 @@
+#+TITLE:  web-mode Configuration Settings
+#+AUTHOR: JJ Asghar
+#+EMAIL:  jjasghar@gmail.com
+
+* General
+
+Enable web-mode:
+
+#+begin_src emacs-lisp :tangle yes
+(require 'web-mode)
+#+end_src
+
+Make sure some file types know about webmode
+#+begin_src emacs-lisp :tangle yes
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+#+end_src
+
+* Getting webmode todo two spaces
+
+Disabling tabs-mode
+#+begin_src emacs-lisp :tangle yes
+(setq-default indent-tabs-mode nil)
+#+end_src
+
+#+begin_src emacs-lisp :tangle yes
+(setq web-mode-markup-indent-offset 2)
+#+end_src

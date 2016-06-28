@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: post
+# key: post
+# --
+post '$1' do
+  $0
+end
