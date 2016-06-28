@@ -31,3 +31,14 @@ Disabling tabs-mode
 #+begin_src emacs-lisp :tangle yes
 (setq web-mode-markup-indent-offset 2)
 #+end_src
+* Highlighting elements and columns
+
+Highlighting element
+#+begin_src emacs-lisp :tangle yes
+(setq web-mode-enable-current-element-highlight t)
+#+end_src
+
+Highlighting column
+#+begin_src emacs-lisp :tangle yes
+(setq web-mode-enable-current-column-highlight t)
+#+end_src
