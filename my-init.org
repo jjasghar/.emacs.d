@@ -8,7 +8,14 @@ This sets my email address and my full-name
 (setq user-mail-address "jj@chef.io")
 (setq user-full-name "JJ Asghar")
 #+END_SRC
-* Interface changes
+* Emacs server
+This starts up the emacs server, :)
+Use the emacsclient now :)
+#+BEGIN_SRC emacs-lisp
+(server-start)
+#+END_SRC
+
+* Main Interface
 ** Font changes
 I don't know my fonts very well, but this seems to be the one I like the most
 #+BEGIN_SRC emacs-lisp
@@ -122,6 +129,14 @@ Also auto refresh dired, but be quiet about it
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 #+END_SRC
+** Scaling text size
+It's nice to be able to make the text size bigger and smaller. On a Mac it's =Command-+= so this seemed logical.
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key "\M-+" 'text-scale-increase)
+(global-set-key "\M-_" 'text-scale-decrease)
+#+end_src
+
 ** Scaling the font, and going back to default
 #+BEGIN_SRC emacs-lisp
 ;; Resize to 0, because i can't figure out how to display on modeline
@@ -146,6 +161,83 @@ Also auto refresh dired, but be quiet about it
 #+BEGIN_SRC emacs-lisp
 (setq sentence-end-double-space nil)
 #+END_SRC
+* Global key
+** General
+
+These are some globalkey bindings I've gotten used to or want to have. I bet they are redundant, but at least I can think of them
+without needing to to =M-x blah=.
+
+** browse-url
+I like the idea of being able to hit =C-c b= on a URL and have it open in my browser.
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "C-c b") 'browse-url-at-point)
+#+end_src
+
+** Spell check
+Auto-load =ispell-get-word=
+
+#+begin_src emacs-lisp :tangle yes
+(autoload 'ispell-get-word "ispell")
+#+end_src
+
+I can never seem to remember what the spell check is, but =M-s M-s= seemed quick enough for me.
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "M-s M-s") 'ispell-word)
+#+end_src
+
+And lookup words in http://en.wiktionary.org/
+
+#+begin_src emacs-lisp :tangle yes
+(defun lookup-word (word)
+  (interactive (list (save-excursion (car (ispell-get-word nil)))))
+  (browse-url (format "http://en.wiktionary.org/wiki/%s" word)))
+
+(global-set-key (kbd "M-#") 'lookup-word)
+#+end_src
+
+** [Comment|Uncomment] region
+While I'm debugging the best think I can do is Comment out or Uncomment out quickly to figure out what's going wrong.
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key "\C-c#" 'comment-region)
+(global-set-key "\C-cu" 'uncomment-region)
+#+end_src
+
+** indent-region
+This just seemed like a logical key binding. I almost never use it though.
+#+begin_src emacs-lisp :tangle yes
+(global-set-key "\C-ci" 'indent-region)
+#+end_src
+
+** write-out-region
+Sometimes I have a region that could it's own file. This does it for me.
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "C-x w") 'write-region)
+#+end_src
+
+** magit-status
+Per the magit readme, this is one of the most used key bindings I have.
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "C-c g") 'magit-status)
+#+end_src
+
+** shortcut for shell
+I sometimes don't want to hop over to my Terminal, this way I can do it inside of emacs.
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "C-c s") 'shell)
+#+end_src
+
+** toggle horizontal and vertial splits
+I like splitting frames, this way i can flip em.
+
+#+begin_src emacs-lisp :tangle yes
+(global-set-key (kbd "C-x |") 'toggle-window-split)
+#+end_src
 * Search Settings
 ** highlight incremental search
 #+BEGIN_SRC emacs-lisp
@@ -172,13 +264,6 @@ This turns on flyspell for anything that is text and comments too!
             '(lambda ()
                (flyspell-prog-mode))))
 #+END_SRC
-* Emacs server
-This starts up the emacs server, :)
-Use the emacsclient now :)
-#+BEGIN_SRC emacs-lisp
-(server-start)
-#+END_SRC
-
 * OSX settings
 These are some Mac OSX settings that I've found I need to use for Emacs. YMMV but so far this does what I want.
 
@@ -234,13 +319,6 @@ stolen from xah's tutorials
 introduced to Spolsky (06/15/2015)
 #+BEGIN_SRC emacs-lisp
 ;; (load-theme 'spolsky t)
-#+END_SRC
-
-* Lorem-ipsum stuff
-#+BEGIN_SRC emacs-lisp
-(autoload 'Lorem-ipsum-insert-paragraphs "lorem-ipsum" "" t)
-(autoload 'Lorem-ipsum-insert-sentences "lorem-ipsum" "" t)
-(autoload 'Lorem-ipsum-insert-list "lorem-ipsum" "" t)
 #+END_SRC
 
 * Flycheck
@@ -396,6 +474,13 @@ Enable j2-mode for linting
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-hook 'js-mode-hook 'js2-minor-mode)
 #+end_src
+
+** Lorem-ipsum mode
+#+BEGIN_SRC emacs-lisp
+(autoload 'Lorem-ipsum-insert-paragraphs "lorem-ipsum" "" t)
+(autoload 'Lorem-ipsum-insert-sentences "lorem-ipsum" "" t)
+(autoload 'Lorem-ipsum-insert-list "lorem-ipsum" "" t)
+#+END_SRC
 
 ** Magit mode
 *** General
@@ -671,15 +756,15 @@ This section is for org-agenda.
 #+END_SRC
 ** Web mode
 *** General
-
 Enable web-mode:
 
-#+begin_src emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle yes
 (require 'web-mode)
 #+end_src
 
 Make sure some file types know about webmode
-#+begin_src emacs-lisp :tangle yes
+
+#+BEGIN_SRC emacs-lisp :tangle yes
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
@@ -954,114 +1039,6 @@ helm-company choose from company completions with C-:
   (define-key company-mode-map (kbd "C-:") 'helm-company)
   (define-key company-active-map (kbd "C-:") 'helm-company))
 #+END_SRC
-
-* Global key
-** General
-
-These are some globalkey bindings I've gotten used to or want to have. I bet they are redundant, but at least I can think of them
-without needing to to =M-x blah=.
-
-** Web key bindings
-** browse-url
-I like the idea of being able to hit =C-c b= on a URL and have it open in my browser.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-c b") 'browse-url-at-point)
-#+end_src
-
-** Local Computer key bindings
-** dash-at-point
-I use dash pretty regulary on a Mac, this way I can look something up with a keystroke.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key "\C-cd" 'dash-at-point)
-#+end_src
-
-** Spell check
-Auto-load =ispell-get-word=
-
-#+begin_src emacs-lisp :tangle yes
-(autoload 'ispell-get-word "ispell")
-#+end_src
-
-I can never seem to remember what the spell check is, but =M-s M-s= seemed quick enough for me.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "M-s M-s") 'ispell-word)
-#+end_src
-
-And lookup words in http://en.wiktionary.org/
-
-#+begin_src emacs-lisp :tangle yes
-(defun lookup-word (word)
-  (interactive (list (save-excursion (car (ispell-get-word nil)))))
-  (browse-url (format "http://en.wiktionary.org/wiki/%s" word)))
-
-(global-set-key (kbd "M-#") 'lookup-word)
-#+end_src
-
-** [Comment|Uncomment] region
-While I'm debugging the best think I can do is Comment out or Uncomment out quickly to figure out what's going wrong.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key "\C-c#" 'comment-region)
-(global-set-key "\C-cu" 'uncomment-region)
-#+end_src
-
-** indent-region
-This just seemed like a logical key binding. I almost never use it though.
-#+begin_src emacs-lisp :tangle yes
-(global-set-key "\C-ci" 'indent-region)
-#+end_src
-
-** text size
-It's nice to be able to make the text size bigger and smaller. On a Mac it's =Command-+= so this seemed logical.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key "\M-+" 'text-scale-increase)
-(global-set-key "\M-_" 'text-scale-decrease)
-#+end_src
-
-** ace-jump-mode
-Something I wish I used more. Adam Spiers showed this trick to me; I just need to use it more.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-0") 'ace-jump-char-mode)
-#+end_src
-
-** write-out-region
-Sometimes I have a region that could it's own file. This does it for me.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-x w") 'write-region)
-#+end_src
-
-** magit-status
-Per the magit readme, this is one of the most used key bindings I have.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-c g") 'magit-status)
-#+end_src
-
-** shortcut for shell
-I sometimes don't want to hop over to my Terminal, this way I can do it inside of emacs.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-c s") 'shell)
-#+end_src
-
-** toggle horizontal and vertial splits
-I like splitting frames, this way i can flip em.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-x |") 'toggle-window-split)
-#+end_src
-** wiki-summary
-I found wiki-summary to pull summarys from wikipedia. Gotta admit that's pretty neat.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-c w") 'wiki-summary)
-#+end_src
 
 * Guide key
 #+BEGIN_SRC emacs-lisp
