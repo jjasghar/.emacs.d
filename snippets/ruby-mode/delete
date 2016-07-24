@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: delete
+# key: delete
+# --
+delete '$1' do
+$0
+end

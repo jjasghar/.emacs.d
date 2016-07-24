@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: putt
+# key: putt
+# --
+put '$1' do
+$0
+end
