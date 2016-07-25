@@ -609,22 +609,27 @@ These are the main settings:
 #+end_src
 
 *** org-babel
-
+Things org-babel can do.
 #+begin_src emacs-lisp :tangle yes
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '(
-   (sh . t)
-   (python . t)
-   (R . t)
-   (ruby . t)
-   (ditaa . t)
-   (dot . t)
-   (octave . t)
-   (sqlite . t)
-   (perl . t)
-   ))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '(
+     (sh . t)
+     (python . t)
+     (R . t)
+     (ruby . t)
+     (ditaa . t)
+     (dot . t)
+     (octave . t)
+     (sqlite . t)
+     (perl . t)
+     ))
 #+end_src
+
+Get out of =org-src-mode= because mine is broken?
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c 1") 'org-edit-src-exit)
+#+END_SRC
 
 *** my main notes.org settings
 
@@ -682,7 +687,6 @@ This section is for org-reveal. https://github.com/yjwen/org-reveal/
 #+begin_src emacs-lisp :tangle yes
 (setq org-reveal-root "file:////Users/jasghar/repo/reveal.js")
 #+end_src
-
 
 *** org-agenda
 This section is for org-agenda.
@@ -874,40 +878,39 @@ http://www.Emacswiki.org/emacs/AbbrevMode
 * My Defined Functions
 I like two buffers but sometimes i like it vert/horizontal
 #+BEGIN_SRC emacs-lisp
-(defun toggle-window-split ()
-  (interactive)
-  (if (= (count-windows) 2)
-      (let* ((this-win-buffer (window-buffer))
-	     (next-win-buffer (window-buffer (next-window)))
-	     (this-win-edges (window-edges (selected-window)))
-	     (next-win-edges (window-edges (next-window)))
-	     (this-win-2nd (not (and (<= (car this-win-edges)
-					 (car next-win-edges))
-				     (<= (cadr this-win-edges)
-					 (cadr next-win-edges)))))
-	     (splitter
-	      (if (= (car this-win-edges)
-		     (car (window-edges (next-window))))
-		  'split-window-horizontally
-		'split-window-vertically)))
-	(delete-other-windows)
-	(let ((first-win (selected-window)))
-	  (funcall splitter)
-	  (if this-win-2nd (other-window 1))
-	  (set-window-buffer (selected-window) this-win-buffer)
-	  (set-window-buffer (next-window) next-win-buffer)
-	  (select-window first-win)
-	  (if this-win-2nd (other-window 1))))))
+  (defun toggle-window-split ()
+    (interactive)
+    (if (= (count-windows) 2)
+        (let* ((this-win-buffer (window-buffer))
+               (next-win-buffer (window-buffer (next-window)))
+               (this-win-edges (window-edges (selected-window)))
+               (next-win-edges (window-edges (next-window)))
+               (this-win-2nd (not (and (<= (car this-win-edges)
+                                           (car next-win-edges))
+                                       (<= (cadr this-win-edges)
+                                           (cadr next-win-edges)))))
+               (splitter
+                (if (= (car this-win-edges)
+                       (car (window-edges (next-window))))
+                    'split-window-horizontally
+                  'split-window-vertically)))
+          (delete-other-windows)
+          (let ((first-win (selected-window)))
+            (funcall splitter)
+            (if this-win-2nd (other-window 1))
+            (set-window-buffer (selected-window) this-win-buffer)
+            (set-window-buffer (next-window) next-win-buffer)
+            (select-window first-win)
+            (if this-win-2nd (other-window 1))))))
 #+END_SRC
 Remove ^M
 #+BEGIN_SRC emacs-lisp
-;; Call with M-x strip[TAB]
-(defun strip-^m ()
-  (interactive)
-  (goto-char (point-min))
-  (while (search-forward "\r" nil nil)
-    (replace-match "")))
-;;(define-key esc-map "o" 'strip-^m)
+  (defun strip-^m ()
+    (interactive)
+    (goto-char (point-min))
+    (while (search-forward "\r" nil nil)
+      (replace-match "")))
+  ;;(define-key esc-map "o" 'strip-^m)
 #+END_SRC
 zones http://www.emacswiki.org/emacs/ZoneMode
 #+BEGIN_SRC emacs-lisp
@@ -1029,7 +1032,7 @@ A better whitespace checker http://www.reddit.com/r/emacs/comments/33vah8/whites
                        tab-mark newline-mark)))
     (if (eq whitespace-style ws-small)
         (setq whitespace-style ws-big)
-      (setq whitespace-style ws-small)))
+     (setq whitespace-style ws-small)))
   (whitespace-mode 1))
 (define-key prog-mode-map (kbd "C-c w") 'better-whitespace)
 #+END_SRC
