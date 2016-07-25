@@ -23,6 +23,14 @@ I don't know my fonts very well, but this seems to be the one I like the most
 (set-face-attribute 'default t :font "-outline-Monaco-normal-normal-normal-mono-16-*-*-*-c-*-iso8859-1" )
 #+END_SRC
 
+This adds a default font size for my old man eyes.
+
+The value is in 1/10pt, so 100 will give you 10pt, etc.
+
+#+BEGIN_SRC emacs-lisp
+(set-face-attribute 'default nil :height 250)
+#+END_SRC
+
 ** Turn off toolbar
 #+BEGIN_SRC emacs-lisp
 (tool-bar-mode -1)
