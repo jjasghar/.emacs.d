@@ -358,10 +358,7 @@ The following turns on company-mode by default
 #+END_SRC
 
 ** Default major mode
-Set the default major-mode for any new buffer
-#+BEGIN_SRC emacs-lisp
-(setq-default major-mode 'org-mode)
-#+END_SRC
+
 ** DockerFile mode
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/modes/dockerfile-mode/")
@@ -519,6 +516,8 @@ Adam Spiers suggested that I take a look at [[https://github.com/sigma/magit-gh-
 Theses are configurations for markdown. I like markdown a lot so that's why it's so aggressive.
 
 #+begin_src emacs-lisp :tangle yes
+ (use-package markdown-mode
+    :ensure t)
 (autoload 'markdown-mode "markdown-mode"
    "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
@@ -534,7 +533,6 @@ Theses are configurations for markdown. I like markdown a lot so that's why it's
 (setq org-default-notes-file (concat "~/org/todo.org"))
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-export-coding-system 'utf-8)
-(setq org-export-backends (quote (ascii html icalendar latex md)))
 (setq org-startup-indented t)
 #+end_src
 
@@ -597,6 +595,9 @@ C-c C-q for quit (which will return you back to vanilla org-mode)
 These are the main settings:
 
 #+begin_src emacs-lisp :tangle yes
+ (use-package org-present
+    :ensure t)
+
 (eval-after-load "org-present"
   '(progn
      (add-hook 'org-present-mode-hook
@@ -619,19 +620,19 @@ These are the main settings:
 *** org-babel
 Things org-babel can do.
 #+begin_src emacs-lisp :tangle yes
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '(
-     (sh . t)
-     (python . t)
-     (R . t)
-     (ruby . t)
-     (ditaa . t)
-     (dot . t)
-     (octave . t)
-     (sqlite . t)
-     (perl . t)
-     ))
+;  (org-babel-do-load-languages
+;   'org-babel-load-languages
+;   '(
+;     (sh . t)
+;     (python . t)
+;     (R . t)
+;     (ruby . t)
+;     (ditaa . t)
+;     (dot . t)
+;     (octave . t)
+;     (sqlite . t)
+;     (perl . t)
+;     ))
 #+end_src
 
 Get out of =org-src-mode= because mine is broken?
@@ -643,10 +644,10 @@ Get out of =org-src-mode= because mine is broken?
 
 #+begin_src emacs-lisp :tangle yes
 ;; shortcut to notes.org
-(global-set-key (kbd "C-c n")
-                (lambda () (interactive) (find-file "~/org/notes.org")))
-(global-set-key (kbd "C-c t")
-                (lambda () (interactive) (find-file "~/org/todo.org")))
+;(global-set-key (kbd "C-c n")
+;                (lambda () (interactive) (find-file "~/org/notes.org")))
+;(global-set-key (kbd "C-c t")
+;                (lambda () (interactive) (find-file "~/org/todo.org")))
 #+end_src
 
 *** org-capture frame
@@ -693,8 +694,8 @@ Stolen from [[http://blog.binchen.org/posts/emacs-auto-completion-for-non-progra
 This section is for org-reveal. https://github.com/yjwen/org-reveal/
 
 #+begin_src emacs-lisp :tangle yes
-  (use-package ox-reveal
-   :ensure ox-reveal)
+  (add-to-list 'load-path "~/.emacs.d/modes/org-reveal/")
+  (require 'ox-reveal)
 
   (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
   (setq org-reveal-mathjax t)
@@ -772,6 +773,14 @@ This installs and configures [[https://github.com/marsmining/ox-twbs][org mode t
   (when (require 'rubocop nil t)
     (add-hook 'ruby-mode-hook 'rubocop-mode))
    #+end_src
+** toml mode
+#+BEGIN_SRC emacs-lisp
+ (use-package toml-mode
+    :ensure t)
+#+END_SRC
+
+#+RESULTS:
+
 ** Twit mode
 #+BEGIN_SRC emacs-lisp
 (setq twittering-use-master-password t)
