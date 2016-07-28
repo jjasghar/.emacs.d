@@ -28,7 +28,7 @@ This adds a default font size for my old man eyes.
 The value is in 1/10pt, so 100 will give you 10pt, etc.
 
 #+BEGIN_SRC emacs-lisp
-(set-face-attribute 'default nil :height 250)
+(set-face-attribute 'default nil :height 200)
 #+END_SRC
 
 ** Turn off toolbar
@@ -247,9 +247,19 @@ I like splitting frames, this way i can flip em.
 (global-set-key (kbd "C-x |") 'toggle-window-split)
 #+end_src
 * Search Settings
-** highlight incremental search
+** Swiper
+This adds https://github.com/abo-abo/swiper. Thanks to http://cestlaz.github.io/posts/using-emacs-6-swiper/
 #+BEGIN_SRC emacs-lisp
-(setq query-replace-highlight t)
+(use-package ivy
+  :ensure t
+)
+(use-package swiper
+  :ensure t
+  :config
+  (progn
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (global-set-key "\C-s" 'swiper)))
 #+END_SRC
 * Never tabs
 #+BEGIN_SRC emacs-lisp
