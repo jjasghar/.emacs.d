@@ -73,34 +73,35 @@ This is the builtin show white spaces
 #+END_SRC
 ** mode-line changes
 
-It looks like: =**U: 12% (x)(y) Mode [File] 10k=
+It looks like: =(x)(y) **[File] U: Mode 12% 10k=
 
 #+BEGIN_SRC emacs-lisp
-(setq-default mode-line-format
-              (list
-               ;; been modified
-               "%+"
-               ;; readonly
-               "%*"
-               ;; coding
-               "%Z"
-               ;; location
-               " %p "
-               ;; value of current line number
-               " (%l)"
-               ;; value of current column number
-               "(%c)"
-               ;; value of `mode-name'
-               " %m "
-               ;; value of current buffer name
-               "[%b] "
-               ;; size of the file
-               " %I "
-               ;; value of test-size
-               " %n "
-               ))
+  (setq-default mode-line-format
+                (list
+                 ;; value of current line number
+                 " (%l)"
+                 ;; value of current column number
+                 "(%c)  "
+                 ;; been modified
+                 "%+"
+                 ;; readonly
+                 "%*"
+                 ;; value of current buffer name
+                 "[%b] "
+                 ;; coding
+                 "%Z"
+                 ;; value of `mode-name'
+                 " %m "
+                 ;; location
+                 " %p "
+                 ;; size of the file
+                 " %I "
+                 ;; value of test-size
+                 " %n "
+                 ))
 
 #+END_SRC
+
 ** Turn off beeping for emacs
 #+BEGIN_SRC emacs-lisp
 (setq ring-bell-function 'ignore)
