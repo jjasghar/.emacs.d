@@ -346,8 +346,10 @@ These are my settings for flycheck
 Turn on flycheck
 
 #+begin_src emacs-lisp :tangle yes
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode t))
 #+end_src
 
 Set flycheck with shellcheck for =sh-mode= [[http://skybert.net/emacs/bash-linting-in-emacs/][Referance]]
