@@ -1257,3 +1257,27 @@ bind webjump to C-x g http://www.neilvandyke.org/webjump/webjump.el
                     [simple-query "en.wikipedia.org" "en.wikipedia.org/w/index.php?search=" ""])
                    )))
 #+END_SRC
+* google-this
+This installs and configures =google-this= stole this from [[http://pragmaticemacs.com/emacs/google-search-from-inside-emacs/][here]]
+#+BEGIN_SRC emacs-lisp
+  (use-package google-this
+    :config
+    (google-this-mode 1))
+#+END_SRC
+| Key command    | what it does                                  |
+|----------------+-----------------------------------------------|
+| C-c / SPC      | 	google-this-region                    |
+| C-c / a        | 	google-this-ray                       |
+| C-c / c        | 	google-this-translate-query-or-region |
+| C-c / e        | 	google-this-error                     |
+| C-c / f        | 	google-this-forecast                  |
+| C-c / g        | 	google-this-lucky-search              |
+| C-c / i        | 	google-this-lucky-and-insert-url      |
+| C-c / l        | 	google-this-line                      |
+| C-c / m        | 	google-maps                           |
+| C-c / n        | 	google-this-noconfirm                 |
+| C-c / r        | 	google-this-cpp-reference             |
+| C-c / s        | 	google-this-symbol                    |
+| C-c / t        | 	google-this                           |
+| C-c / w        | 	google-this-word                      |
+| C-c / <return> | 	google-this-search                    |
