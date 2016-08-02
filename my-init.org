@@ -478,7 +478,7 @@ After installing helm, this is how to turn it on.
 (global-set-key (kbd "C-c M-g") 'helm-google-suggest)
 #+end_src
 
-** Javascript mode
+** JavaScript mode
 
 Here is a way to change the indentation for javascript-mode to 2. Stolen from: http://stackoverflow.com/questions/4177929/how-to-change-the-indentation-width-in-emacs-javascript-mode
 
@@ -738,6 +738,20 @@ This installs and configures [[https://github.com/marsmining/ox-twbs][org mode t
   (use-package ox-twbs
     :ensure t)
 #+END_SRC
+** proselint mode
+Taken from http://unconj.ca/blog/linting-prose-in-emacs.html
+#+BEGIN_SRC emacs-lisp
+(flycheck-define-checker proselint
+  "A linter for prose."
+  :command ("proselint" source-inplace)
+  :error-patterns
+  ((warning line-start (file-name) ":" line ":" column ": "
+        (id (one-or-more (not (any " "))))
+        (message) line-end))
+  :modes (text-mode markdown-mode gfm-mode message-mode notmuch-message-mode))
+
+(add-to-list 'flycheck-checkers 'proselint)
+#+END_SRC
 ** Ruby mode
 *** General
  A lot of this  stolen from: [[http://github.com/howardabrams][howard abrams]] I've learned a TON from him.
@@ -801,6 +815,7 @@ This installs and configures [[https://github.com/marsmining/ox-twbs][org mode t
 (setq twittering-icon-mode t)
 (setq twittering-display-remaining t)
 #+END_SRC
+
 ** Web mode
 *** General
 Enable web-mode:
@@ -843,6 +858,13 @@ Highlighting column
 (setq web-mode-enable-current-column-highlight t)
 #+end_src
 
+** writegood mode
+taken from http://bnbeckwith.com/code/writegood-mode.html
+#+BEGIN_SRC emacs-lisp :tange no
+(add-to-list 'load-path "~/.emacs.d/modes/writegood-mode")
+(require 'writegood-mode)
+(global-set-key "\C-cg" 'writegood-mode)
+#+END_SRC
 ** YAML mode
 #+BEGIN_SRC emacs-lisp
 (require 'yaml-mode)
@@ -1281,3 +1303,73 @@ This installs and configures =google-this= stole this from [[http://pragmaticema
 | C-c / t        | 	google-this                           |
 | C-c / w        | 	google-this-word                      |
 | C-c / <return> | 	google-this-search                    |
+* notmuch
+
+My notmuch configuration
+
+Bind =C-c m= to notmuch
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c m") `notmuch)
+#+END_SRC
+
+Set up some closing of buffers when I've sent a message.
+#+BEGIN_SRC emacs-lisp
+;Setup User-Agent header
+(setq mail-user-agent 'message-user-agent)
+
+(setq message-kill-buffer-on-exit t) ; kill buffer after sending mail)
+(setq mail-specify-envelope-from t) ; Settings to work with msmtp
+#+END_SRC
+
+Add the following to your notmuch init file to get a status message about the change in the number of messages in the mail store when refreshing the notmuch-hello buffer.
+#+BEGIN_SRC emacs-lisp
+  (defvar notmuch-hello-refresh-count 0)
+
+  (defun notmuch-hello-refresh-status-message ()
+    (unless no-display
+      (let* ((new-count
+              (string-to-number
+               (car (process-lines notmuch-command "count"))))
+             (diff-count (- new-count notmuch-hello-refresh-count)))
+        (cond
+         ((= notmuch-hello-refresh-count 0)
+          (message "You have %s messages."
+                   (notmuch-hello-nice-number new-count)))
+         ((> diff-count 0)
+          (message "You have %s more messages since last refresh."
+                   (notmuch-hello-nice-number diff-count)))
+         ((< diff-count 0)
+          (message "You have %s fewer messages since last refresh."
+                   (notmuch-hello-nice-number (- diff-count)))))
+        (setq notmuch-hello-refresh-count new-count))))
+
+  (add-hook 'notmuch-hello-refresh-hook 'notmuch-hello-refresh-status-message)
+#+END_SRC
+
+Taken from https://bostonenginerd.com/posts/notmuch-of-a-mail-setup-part-2-notmuch-and-emacs/
+#+BEGIN_SRC emacs-lisp
+(setq notmuch-saved-searches
+(quote
+((:name "inbox" :query "tag:inbox" :key "i" :sort-order newest-first)
+ (:name "flagged" :query "tag:flagged" :key "f") ;flagged messages
+ (:name "sent" :query "tag:sent -tag:work" :key "t" :sort-order newest-first)
+ (:name "drafts" :query "tag:draft" :key "d")
+ (:name "mailinglist" :query "tag:lists/mailinglistID" :key "c")
+ (:name "all mail" :query "*" :key "a" :sort-order newest-first))))
+#+END_SRC
+
+Mark things as spam
+#+BEGIN_SRC emacs-lisp :tangle no
+(define-key notmuch-show-mode-map "S"
+    (lambda ()
+    "mark message as spam"
+    (interactive)
+(notmuch-show-tag (list "+spam" "-inbox"))))
+
+(define-key notmuch-search-mode-map "S"
+(lambda ()
+    "mark message as spam"
+    (interactive)
+    (notmuch-search-tag (list "-inbox" "+spam"))
+    (next-line) ))
+#+END_SRC
