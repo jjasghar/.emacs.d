@@ -79,9 +79,9 @@ It looks like: =(x)(y) **[File] U: Mode 12% 10k=
   (setq-default mode-line-format
                 (list
                  ;; value of current line number
-                 " (%l)"
                  ;; value of current column number
-                 "(%c)  "
+                 " (%l,%c)  "
+
                  ;; been modified
                  "%+"
                  ;; readonly
@@ -101,6 +101,9 @@ It looks like: =(x)(y) **[File] U: Mode 12% 10k=
                  ))
 
 #+END_SRC
+
+#+RESULTS:
+| (%l,%c) | %+ | %* | [%b] | %Z | %m | %p | %I | %n |
 
 ** Turn off beeping for emacs
 #+BEGIN_SRC emacs-lisp
@@ -513,6 +516,13 @@ Enable j2-mode for linting
 *** General
 These are some magit plugins and configuration options.
 
+#+begin_src emacs-lisp :tangle yes
+(use-package magit
+  :config (use-package magithub))
+#+end_src
+
+This also installs [[https://github.com/vermiculus/magithub/][magithub]] which is an integration with github.
+
 *** magit-gerrit
 Adam Spiers suggested that I take a look at [[https://github.com/terranpro/magit-gerrit][magit-gerrit]] I do spend all my time in gerrit ;)
 
@@ -815,6 +825,22 @@ Taken from http://unconj.ca/blog/linting-prose-in-emacs.html
     :ensure t)
 #+END_SRC
 
+** rust mode
+#+BEGIN_SRC emacs-lisp
+ (use-package rust-mode
+    :ensure t)
+ (use-package flycheck-rust
+    :ensure t)
+#+END_SRC
+
+#+RESULTS:
+
+** terraform mode
+#+BEGIN_SRC emacs-lisp
+ (use-package terraform-mode
+    :ensure t)
+#+END_SRC
+
 ** Twit mode
 #+BEGIN_SRC emacs-lisp
 (setq twittering-use-master-password t)
@@ -962,6 +988,20 @@ http://www.Emacswiki.org/emacs/AbbrevMode
 (setq save-abbrevs t)
 #+END_SRC
 * My Defined Functions
+Fixing sh-mode
+#+BEGIN_SRC emacs-lisp
+(defun asghar-setup-sh-mode ()
+  "My own personal preferences for `sh-mode'.
+
+This is a custom function that sets up the parameters I usually
+prefer for `sh-mode'.  It is automatically added to
+`sh-mode-hook', but is can also be called interactively."
+  (interactive)
+  (setq sh-basic-offset 2
+        sh-indentation 2))
+(add-hook 'sh-mode-hook 'asghar-setup-sh-mode)
+
+#+END_SRC
 I like two buffers but sometimes i like it vert/horizontal
 #+BEGIN_SRC emacs-lisp
   (defun toggle-window-split ()
