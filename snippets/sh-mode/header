@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: header
+# key: header
+# --
+pkg_origin=$1
+pkg_name=$2
+pkg_version=$3
+pkg_maintainer='The Habitat Maintainers <humans@habitat.sh>'
+pkg_license=("$4")
+pkg_description="$5"
+pkg_upstream_url=$6
+pkg_source=$7
+pkg_shasum=
+pkg_filename=${pkg_name}-${pkg_version}.zip
+pkg_deps=()
+pkg_build_deps=($8)
+pkg_bin_dirs=(bin)
+pkg_expose=($9)
+pkg_svc_user=$10
+$0

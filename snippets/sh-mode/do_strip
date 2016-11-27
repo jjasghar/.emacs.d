@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do_strip
+# key: do_strip
+# --
+do_strip() {
+  $0
+}

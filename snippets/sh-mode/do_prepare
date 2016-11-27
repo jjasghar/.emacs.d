@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do_prepare
+# key: do_prepare
+# --
+do_prepare() {
+  $0
+}

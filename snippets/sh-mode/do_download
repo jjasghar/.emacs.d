@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do_download
+# key: do_download
+# --
+do_download() {
+  $0
+}

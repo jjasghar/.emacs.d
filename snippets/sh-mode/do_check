@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do_check
+# key: do_check
+# --
+do_check() {
+  make test$0
+}

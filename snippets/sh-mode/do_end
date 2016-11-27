@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do_end
+# key: do_end
+# --
+do_end() {
+  $0
+}

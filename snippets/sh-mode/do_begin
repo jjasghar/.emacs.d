@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do_begin
+# key: do_begin
+# --
+do_begin() {
+  $0
+}

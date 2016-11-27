@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do_verify
+# key: do_verify
+# --
+do_verify() {
+  $0
+}

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do_unpack
+# key: do_unpack
+# --
+do_unpack() {
+  $0
+}
