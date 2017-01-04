@@ -20,7 +20,7 @@ Use the emacsclient now :)
 I don't know my fonts very well, but this seems to be the one I like the most
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'default-frame-alist '(font . "-outline-Monaco-normal-normal-normal-mono-16-*-*-*-c-*-iso8859-1" ))
-(set-face-attribute 'default t :font "-outline-Monaco-normal-normal-normal-mono-16-*-*-*-c-*-iso8859-1" )
+(set-face-attribute 'default nil :font "-outline-Monaco-normal-normal-normal-mono-16-*-*-*-c-*-iso8859-1" )
 #+END_SRC
 
 This adds a default font size for my old man eyes.
@@ -298,10 +298,11 @@ This turns on flyspell for anything that is text and comments too!
 * OSX settings
 These are some Mac OSX settings that I've found I need to use for Emacs. YMMV but so far this does what I want.
 
+This is taken from http://stackoverflow.com/questions/18855510/have-emacs-highlight-characters-over-80b
 #+BEGIN_SRC emacs-lisp :tangle yes
-(require 'whitespace)
- (setq whitespace-style '(face empty tabs lines-tail trailing))
-(global-whitespace-mode t)
+;(require 'whitespace)
+; (setq whitespace-style '(face empty tabs lines-tail trailing))
+;(global-whitespace-mode t)
 #+END_SRC
 
 ** Homebrew Fix
@@ -417,6 +418,20 @@ Some random variables and such that I like.
  '(send-mail-function nil)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
 #+end_src
+
+** Golden Ratio mode
+
+This sets up the golden ratio package
+
+http://pragmaticemacs.com/emacs/resize-your-windows-to-the-golden-ratio/
+
+#+BEGIN_SRC elisp :tangle yes
+(use-package golden-ratio
+  :ensure t
+  :diminish golden-ratio-mode
+  :init
+  (golden-ratio-mode 1))
+#+END_SRC
 
 ** Helm mode
 *** General
@@ -989,7 +1004,7 @@ http://www.Emacswiki.org/emacs/AbbrevMode
 #+END_SRC
 * My Defined Functions
 
-nawrrow-or-widen: http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
+narrow-dwim http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
 #+BEGIN_SRC emacs-lisp
 (defun narrow-or-widen-dwim (p)
   "Widen if buffer is narrowed, narrow-dwim otherwise.
@@ -1016,19 +1031,7 @@ is already narrowed."
         ((derived-mode-p 'latex-mode)
          (LaTeX-narrow-to-environment))
         (t (narrow-to-defun))))
-
-(define-key endless/toggle-map "n"
-  #'narrow-or-widen-dwim)
-;; This line actually replaces Emacs' entire narrowing
-;; keymap, that's how much I like this command. Only
-;; copy it if that's what you want.
-(define-key ctl-x-map "n" #'narrow-or-widen-dwim)
-(add-hook 'LaTeX-mode-hook
-          (lambda ()
-            (define-key LaTeX-mode-map "\C-xn"
-              nil)))
 #+END_SRC
-
 
 Fixing sh-mode, 2spaces because 2 spaces is godlike.
 #+BEGIN_SRC emacs-lisp
