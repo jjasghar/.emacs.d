@@ -19,8 +19,8 @@ Use the emacsclient now :)
 ** Font changes
 I don't know my fonts very well, but this seems to be the one I like the most
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'default-frame-alist '(font . "-outline-Monaco-normal-normal-normal-mono-16-*-*-*-c-*-iso8859-1" ))
-(set-face-attribute 'default nil :font "-outline-Monaco-normal-normal-normal-mono-16-*-*-*-c-*-iso8859-1" )
+(add-to-list 'default-frame-alist '(font . "-outline-Monaco-normal-normal-normal-mono-20-*-*-*-c-*-iso8859-1" ))
+(set-face-attribute 'default nil :font "-outline-Monaco-normal-normal-normal-mono-20-*-*-*-c-*-iso8859-1" )
 #+END_SRC
 
 This adds a default font size for my old man eyes.
