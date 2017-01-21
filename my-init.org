@@ -516,6 +516,10 @@ Here is a way to change the indentation for javascript-mode to 2. Stolen from: h
 Enable j2-mode for linting
 
 #+begin_src emacs-lisp :tangle yes
+(use-package js2-mode
+  :ensure t
+  :init
+)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-hook 'js-mode-hook 'js2-minor-mode)
 #+end_src
@@ -531,9 +535,11 @@ Enable j2-mode for linting
 *** General
 These are some magit plugins and configuration options.
 
+I believe this is broken.
+
 #+begin_src emacs-lisp :tangle yes
-(use-package magit
-  :config (use-package magithub))
+;(use-package magit
+;  :config (use-package magithub))
 #+end_src
 
 This also installs [[https://github.com/vermiculus/magithub/][magithub]] which is an integration with github.
