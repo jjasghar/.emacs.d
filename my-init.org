@@ -792,6 +792,12 @@ Taken from http://unconj.ca/blog/linting-prose-in-emacs.html
 
 (add-to-list 'flycheck-checkers 'proselint)
 #+END_SRC
+** powershell mode
+#+BEGIN_SRC emacs-lisp
+ (use-package powershell-mode
+    :ensure t)
+
+#+END_SRC
 ** Ruby mode
 *** General
  A lot of this  stolen from: [[http://github.com/howardabrams][howard abrams]] I've learned a TON from him.
