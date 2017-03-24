@@ -994,7 +994,6 @@ As you can see, it just enables it whenever ruby-mode is enabled also.
           #'(lambda ()
               (yas-activate-extra-mode 'chef-mode)))
 #+end_src
-
 * Defined-aliases
 Traditional buffer list blows
 #+BEGIN_SRC emacs-lisp
@@ -1500,3 +1499,9 @@ Mark things as spam
     (notmuch-search-tag (list "-inbox" "+spam"))
     (next-line) ))
 #+END_SRC
+* restcliest.el
+#+BEGIN_SRC emacs-lisp
+  (use-package restclient
+    :ensure t)
+#+END_SRC
+https://github.com/pashky/restclient.el

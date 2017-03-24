@@ -45,3 +45,6 @@ bookmarks
 
 # my-init.html
 my-init.html
+
+init.el
+.DS_Store
