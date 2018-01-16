@@ -186,7 +186,8 @@ I like the idea of being able to hit =C-c b= on a URL and have it open in my bro
 (global-set-key (kbd "C-c b") 'browse-url-at-point)
 #+end_src
 
-** Spell check
+** Spell check and thesaurus
+*** Spell Check
 Auto-load =ispell-get-word=
 
 #+begin_src emacs-lisp :tangle yes
@@ -209,7 +210,17 @@ And lookup words in http://en.wiktionary.org/
 (global-set-key (kbd "M-#") 'lookup-word)
 #+end_src
 
-** [Comment|Uncomment] region
+*** Thesaurus
+https://www.emacswiki.org/emacs/thesaurus.el
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/el/")
+(require 'thesaurus)
+(thesaurus-set-bhl-api-key-from-file "~/BigHugeLabs.apikey.txt")
+(define-key global-map (kbd "M-s t") 'thesaurus-choose-synonym-and-replace)
+#+END_SRC
+
+** [comment|Uncomment] region
 While I'm debugging the best think I can do is Comment out or Uncomment out quickly to figure out what's going wrong.
 
 #+begin_src emacs-lisp :tangle yes
@@ -531,40 +542,6 @@ Enable j2-mode for linting
 (autoload 'Lorem-ipsum-insert-list "lorem-ipsum" "" t)
 #+END_SRC
 
-** Magit mode
-*** General
-These are some magit plugins and configuration options.
-
-I believe this is broken.
-
-#+begin_src emacs-lisp :tangle yes
-;(use-package magit
-;  :config (use-package magithub))
-#+end_src
-
-This also installs [[https://github.com/vermiculus/magithub/][magithub]] which is an integration with github.
-
-*** magit-gerrit
-Adam Spiers suggested that I take a look at [[https://github.com/terranpro/magit-gerrit][magit-gerrit]] I do spend all my time in gerrit ;)
-
-#+begin_src emacs-lisp :tangle yes
-(require 'magit-gerrit)
-
-;; if remote url is not using the default gerrit port and
-;; ssh scheme, need to manually set this variable
-(setq-default magit-gerrit-ssh-creds "jj")
-
-;; if necessary, use an alternative remote instead of 'origin'
-(setq-default magit-gerrit-remote "gerrit")
-#+end_src
-*** magit-gh-pulls
-Adam Spiers suggested that I take a look at [[https://github.com/sigma/magit-gh-pulls][magit-gh-pulls]] I do spend all my time in github ;)
-
-#+begin_src emacs-lisp :tangle yes
-(require 'magit-gh-pulls)
-(add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-#+end_src
-
 ** Markdown mode
 Theses are configurations for markdown. I like markdown a lot so that's why it's so aggressive.
 
@@ -591,29 +568,29 @@ Theses are configurations for markdown. I like markdown a lot so that's why it's
 
 *** org-capture templates
 #+begin_src emacs-lisp :tangle yes
-(setq org-capture-templates
-      '(("t"              ; hotkey
-         "TODO list item" ; name
-         entry            ; type
-         ; heading type and title
-         (file+headline org-default-notes-file "TODOs")
-         "*** TODO %? \n %i Captured at %U \n %i %a") ; template
-        ("j"
-         "Journal entry"
-         entry
-         (file+datetree "~/org/journal.org")
-         (file "~/.emacs.d/org-templates/journal.orgcaptmpl"))
-        ("b"
-         "Tidbit: quote, zinger, one-liner or textlet"
-         entry
-         (file+headline org-default-notes-file "tidbits")
-         (file "~/.emacs.d/org-templates/tidbit.orgcaptmpl"))
-        ("l"
-         "Link to look up later"
-         entry
-         (file+headline org-default-notes-file "links")
-         (file "~/.emacs.d/org-templates/links.orgcaptmpl"))
-        ))
+;(setq org-capture-templates
+;      '(("t"              ; hotkey
+;         "TODO list item" ; name
+;         entry            ; type
+;         ; heading type and title
+;         (file+headline org-default-notes-file "TODOs")
+;         "*** TODO %? \n %i Captured at %U \n %i %a") ; template
+;        ("j"
+;         "Journal entry"
+;         entry
+;         (file+datetree "~/org/journal.org")
+;         (file "~/.emacs.d/org-templates/journal.orgcaptmpl"))
+;        ("b"
+;         "Tidbit: quote, zinger, one-liner or textlet"
+;         entry
+;         (file+headline org-default-notes-file "tidbits")
+;         (file "~/.emacs.d/org-templates/tidbit.orgcaptmpl"))
+;        ("l"
+;         "Link to look up later"
+;         entry
+;        (file+headline org-default-notes-file "links")
+;         (file "~/.emacs.d/org-templates/links.orgcaptmpl"))
+;        ))
 #+end_src
 
 *** org-todo-keywords
@@ -673,19 +650,10 @@ These are the main settings:
 *** org-babel
 Things org-babel can do.
 #+begin_src emacs-lisp :tangle yes
-;  (org-babel-do-load-languages
-;   'org-babel-load-languages
-;   '(
-;     (sh . t)
-;     (python . t)
-;     (R . t)
-;     (ruby . t)
-;     (ditaa . t)
-;     (dot . t)
-;     (octave . t)
-;     (sqlite . t)
-;     (perl . t)
-;     ))
+;(org-babel-do-load-languages 'org-babel-load-languages '(
+;        (python . t)
+;        (ditaa . t))
+;    )
 #+end_src
 
 Get out of =org-src-mode= because mine is broken?
@@ -1257,12 +1225,12 @@ This following function either switches to the erc buffer or starts up erc for y
 #+end_src
 ** Channel management
 ** Joining Channels
-This is a selection of channels on =freenode= and =paraphysics= I like to join.
+This is a selection of channels on =freenode= I like to join.
 
 #+begin_src emacs-lisp :tangle yes
-(setq erc-autojoin-channels-alist '(("freenode.net" "#openstack-chef" "#chef" "#chef-hacking" "#c6h12o6" "#emacs" "#austindevops"
-                                     "#dwarffortress" "#reddit-diabetes" "#openstack-operators")
-                                    ("paraphysics.net" "#eztv")))
+(setq erc-autojoin-channels-alist '(("freenode.net" "#openstack-chef" "#chef" "#c6h12o6" "#emacs"
+                                     "#reddit-diabetes" "#news")
+                                    ))
 #+end_src
 
 If you’d like to join the same channels on any server:
