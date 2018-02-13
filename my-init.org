@@ -255,6 +255,12 @@ I sometimes don't want to hop over to my Terminal, this way I can do it inside o
 (global-set-key (kbd "C-c s") 'shell)
 #+end_src
 
+** Change crtl-x for dvork
+#+begin_src emacs-lisp :tangle yes
+;; Swap “C-t” and “C-x”, so it's easier to type on Dvorak layout
+(keyboard-translate ?\C-t ?\C-x)
+(keyboard-translate ?\C-x ?\C-t)
+#+end_src
 ** toggle horizontal and vertial splits
 I like splitting frames, this way i can flip em.
 
@@ -1473,3 +1479,13 @@ Mark things as spam
     :ensure t)
 #+END_SRC
 https://github.com/pashky/restclient.el
+* Atomic-Chrome
+#+BEGIN_SRC emacs-lisp
+  (use-package atomic-chrome
+    :ensure t
+    :config
+    (atomic-chrome-start-server)
+    (setq atomic-chrome-default-major-mode 'markdown-mode)
+    (setq atomic-chrome-buffer-open-style 'frame)
+    )
+#+END_SRC
