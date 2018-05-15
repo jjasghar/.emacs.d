@@ -1104,6 +1104,22 @@ transpose buffers http://www.emacswiki.org/emacs/TransposeWindows
         (select-window (funcall selector)))
       (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
 #+END_SRC
+
+You should avoid these words.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-highlight-avoid-words ()
+  "DOCSTRING"
+  (interactive)
+  (highlight-regexp "\\obviously\\b\\|\\basicly\\b\\|\\simply\\b|\\clearly\\b\\|\\clearly\\b\\|\\just\\b\\|\\however\\b\\|\\so\\b\\|\\easy\\b\\" "yellow"))
+
+
+(defun my-unhighlight-avoid-words ()
+  "DOCSTRING"
+  (interactive)
+  (unhighlight-regexp "\\obviously\\b\\|\\basicly\\b\\|\\simply\\b|\\clearly\\b\\|\\clearly\\b\\|\\just\\b\\|\\however\\b\\|\\so\\b\\|\\easy\\b\\"))
+#+END_SRC
+
 Only turn on line numbers when GoTo line is on
 #+BEGIN_SRC emacs-lisp
 (global-set-key [remap goto-line] 'goto-line-with-feedback)
