@@ -94,7 +94,7 @@ This is the builtin show white spaces
 
 It looks like: =(x)(y) **[File] U: Mode 12% 10k=
 
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp
   (setq-default mode-line-format
                 (list
                  ;; value of current line number
@@ -186,8 +186,7 @@ It's nice to be able to make the text size bigger and smaller. On a Mac it's =Co
        (text-scale-set 1)
        (kill-local-variable 'text-scale-mode-amount)
        (setq-default text-scale-mode-amount (+ text-scale-mode-amount inc))
-       (global-text-scale-mode 1)
-       )
+       (global-text-scale-mode 1))
   (global-set-key (kbd "M-0")
                   '(lambda () (interactive)
                      (global-text-scale-adjust (- text-scale-mode-amount))
@@ -287,6 +286,13 @@ Disable flycheck checkers
 #+END_SRC
 
 * Modes
+** Conf mode
+   Make sure that the different types of files are set to conf-mode
+
+   #+begin_src emacs-lisp
+  (when (require 'conf-mode nil t)
+    (add-to-list 'auto-mode-alist '("\\.env$"          . conf-mode)))
+   #+end_src
 ** Company mode
 The following turns on company-mode by default
 #+BEGIN_SRC emacs-lisp
@@ -422,7 +428,7 @@ C-c C-q for quit (which will return you back to vanilla org-mode)
 
 These are the main settings:
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
  (use-package org-present
     :ensure t)
 
@@ -486,7 +492,7 @@ I created a [[https://github.com/jjasghar/alfred-org-capture][alfred plugin]] to
 *** Emacs auto-completion for non-programmers
 
 Stolen from [[http://blog.binchen.org/posts/emacs-auto-completion-for-non-programmers.html][here]].
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (require 'company)
 
 (add-hook 'after-init-hook 'global-company-mode)
@@ -541,7 +547,7 @@ This installs and configures [[https://github.com/marsmining/ox-twbs][org mode t
 ;    :ensure t)
 #+END_SRC
 ** powershell mode
-#+BEGIN_SRC emacs-lisp :tangle yes
+#+BEGIN_SRC emacs-lisp
  (use-package powershell
     :ensure t
     )
@@ -555,7 +561,7 @@ This installs and configures [[https://github.com/marsmining/ox-twbs][org mode t
 
    Make sure that the random other types of ruby files are started up in ruby-mode.
 
-   #+begin_src emacs-lisp :tangle yes
+   #+begin_src emacs-lisp
   (when (require 'ruby-mode nil t)
     (add-to-list 'auto-mode-alist '("\\.rb$"          . ruby-mode))
     (add-to-list 'interpreter-mode-alist '("ruby"     . ruby-mode))
@@ -580,7 +586,7 @@ This installs and configures [[https://github.com/marsmining/ox-twbs][org mode t
 
    Run web-mode when you have an .erb, makes reading it SO much better.
 
-   #+begin_src emacs-lisp :tangle yes
+   #+begin_src emacs-lisp
 ;  (when (require 'web-mode nil t)
 ;    (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode)))
    #+end_src
@@ -590,7 +596,7 @@ This installs and configures [[https://github.com/marsmining/ox-twbs][org mode t
 
    Don't forget that rubocop packages and gem install rubocop
 
-   #+begin_src emacs-lisp :tangle yes
+   #+begin_src emacs-lisp
   ;; rubocop mode
   (when (require 'rubocop nil t)
     (add-hook 'ruby-mode-hook 'rubocop-mode))
@@ -620,7 +626,7 @@ yas, is by far the most important plugin I use. snippets are crucial to maintain
 
 Adding [[https://capitaomorte.github.io/yasnippet/faq.html][to fix ruby mode]]
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (add-hook 'ruby-mode-hook 'yas-minor-mode-on)
 #+end_src
 
@@ -628,13 +634,13 @@ Adding [[https://capitaomorte.github.io/yasnippet/faq.html][to fix ruby mode]]
 
 This enables yas throughout global mode, this is awesome, but can be annoying sometimes.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (require 'yasnippet)
 (yas-global-mode 1)
 #+end_src
 
 This makes sure it sees the different snippets directories I have on the file system.
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq yas-snippet-dirs
       '("~/.emacs.d/snippets"   ;; personal snippets
         "~/.emacs.d/elpa/yasnippet/snippets" ;; melpa install
@@ -650,7 +656,7 @@ Because of the snippets being tied to chef-mode instead of ruby-mode, I have to 
 
 As you can see, it just enables it whenever ruby-mode is enabled also.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (define-minor-mode chef-mode
   "This is to activate the chef-mode for yasnippets"
   :lighter " chef-mode")
@@ -674,33 +680,12 @@ This automatically deletes those trailing white spaces
 #+END_SRC
 * My Defined Functions
 
-narrow-dwim http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
+Open up `~/` in Dired with =S-<f1>=
 #+BEGIN_SRC emacs-lisp
-(defun narrow-or-widen-dwim (p)
-  "Widen if buffer is narrowed, narrow-dwim otherwise.
-Dwim means: region, org-src-block, org-subtree, or
-defun, whichever applies first. Narrowing to
-org-src-block actually calls `org-edit-src-code'.
-
-With prefix P, don't widen, just narrow even if buffer
-is already narrowed."
-  (interactive "P")
-  (declare (interactive-only))
-  (cond ((and (buffer-narrowed-p) (not p)) (widen))
-        ((region-active-p)
-         (narrow-to-region (region-beginning)
-                           (region-end)))
-        ((derived-mode-p 'org-mode)
-         ;; `org-edit-src-code' is not a real narrowing
-         ;; command. Remove this first conditional if
-         ;; you don't want it.
-         (cond ((ignore-errors (org-edit-src-code) t)
-                (delete-other-windows))
-               ((ignore-errors (org-narrow-to-block) t))
-               (t (org-narrow-to-subtree))))
-        ((derived-mode-p 'latex-mode)
-         (LaTeX-narrow-to-environment))
-        (t (narrow-to-defun))))
+(global-set-key (kbd "S-<f1>")
+  (lambda ()
+    (interactive)
+    (dired "~/")))
 #+END_SRC
 
 Fixing sh-mode, 2spaces because 2 spaces is godlike.
@@ -815,7 +800,7 @@ ERC is a built in IRC client to emacs. Here are some configurations I've come up
 
 This following function either switches to the erc buffer or starts up erc for you.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (defun erc-start-or-switch ()
   "Connect to ERC, or switch to last active buffer"
   (interactive)
@@ -830,7 +815,7 @@ This following function either switches to the erc buffer or starts up erc for y
 ** Joining Channels
 This is a selection of channels on =freenode= I like to join.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq erc-autojoin-channels-alist '(("freenode.net" "#openstack-chef" "#chef" "#c6h12o6" "#emacs"
                                      "#reddit-diabetes" "#news")
                                     ))
@@ -844,12 +829,12 @@ If you’d like to join the same channels on any server:
 
 ** Muting parts of the channel
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (erc-track-mode t)
 #+end_src
 No one likes parts and quits and all.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
 
                                  "324" "329" "332" "333" "353" "477"))
@@ -858,19 +843,19 @@ No one likes parts and quits and all.
 
 ** Formatting the buffer
 
-#+BEGIN_SRC :tangle no
+#+BEGIN_SRC
 [12:34] <user-one> the quick brown fox jumps over the lazy dog.  the quick
        + brown fox jumps over the lazy dog
 #+END_SRC
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq erc-timestamp-format "[%H:%M] ")
  (setq erc-fill-prefix "      + ")
 #+END_SRC
 
 Fill width so it looks better.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (make-variable-buffer-local 'erc-fill-column)
  (add-hook 'window-configuration-change-hook
 	   '(lambda ()
@@ -886,7 +871,7 @@ Fill width so it looks better.
 ** erc growl
 I use a mac, and growl helps notify me on when I'm tabbed out of emacs.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (defvar growlnotify-command (executable-find "/usr/local/bin/growlnotify") "The path to growlnotify")
 
 (defun growl (title message)
