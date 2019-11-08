@@ -90,6 +90,12 @@ This is the builtin show white spaces
 ")
 #+END_SRC
 
+** Ido Mode
+Ido mode! https://www.emacswiki.org/emacs/InteractivelyDoThings
+#+BEGIN_SRC emacs-lisp
+  (require 'ido)
+  (ido-mode t)
+#+END_SRC
 ** mode-line changes
 
 It looks like: =(x)(y) **[File] U: Mode 12% 10k=
