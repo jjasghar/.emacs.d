@@ -4,10 +4,11 @@
 
 * Info about me
 This sets my email address and my full-name
-#+BEGIN_SRC emacs-lisp
-(setq user-mail-address "jj@chef.io")
+#+BEGIN_SRC emacs-lisp :tangle yes
+(setq user-mail-address "awesome@ibm.com")
 (setq user-full-name "JJ Asghar")
 #+END_SRC
+
 * Emacs server
 This starts up the emacs server, :)
 Use the emacsclient now :)
@@ -16,6 +17,18 @@ Use the emacsclient now :)
 #+END_SRC
 
 * Main Interface
+** Themes
+misterioso via default themes (11/8/2019)
+#+BEGIN_SRC emacs-lisp
+(load-theme 'misterioso t)
+#+END_SRC
+
+** Never tabs
+#+BEGIN_SRC emacs-lisp
+(setq-default indent-tabs-mode nil)
+(setq tab-width 2) ; set the tab width to two
+#+END_SRC
+
 ** Font changes
 I don't know my fonts very well, but this seems to be the one I like the most
 #+BEGIN_SRC emacs-lisp
@@ -35,15 +48,18 @@ The value is in 1/10pt, so 100 will give you 10pt, etc.
 #+BEGIN_SRC emacs-lisp
 (tool-bar-mode -1)
 #+END_SRC
+
 ** Turn off scroll bar
 #+BEGIN_SRC emacs-lisp
 (scroll-bar-mode -1)
 #+END_SRC
+
 ** Show Paren Mode
 This turns on =paren-mode= globally http://www.emacswiki.org/emacs/ShowParenMode
 #+BEGIN_SRC emacs-lisp
 (show-paren-mode 1)
 #+END_SRC
+
 ** Moved the saves to a useful place
 I hate those =~= files, this puts them all in a folder in my home directory
 #+BEGIN_SRC emacs-lisp
@@ -56,11 +72,13 @@ I hate those =~= files, this puts them all in a folder in my home directory
   version-control t
 )
 #+END_SRC
+
 ** Show white spaces
 This is the builtin show white spaces
 #+BEGIN_SRC emacs-lisp
 (setq show-trailing-whitespace t)
 #+END_SRC
+
 ** Change the scratch buffer initial message
 #+BEGIN_SRC emacs-lisp
 (setq initial-major-mode 'lisp-mode)
@@ -71,11 +89,12 @@ This is the builtin show white spaces
 #
 ")
 #+END_SRC
+
 ** mode-line changes
 
 It looks like: =(x)(y) **[File] U: Mode 12% 10k=
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle yes
   (setq-default mode-line-format
                 (list
                  ;; value of current line number
@@ -110,18 +129,22 @@ It looks like: =(x)(y) **[File] U: Mode 12% 10k=
 (setq ring-bell-function 'ignore)
 (setq visible-bell t)
 #+END_SRC
+
 ** Set column-line mode
 #+BEGIN_SRC emacs-lisp
 (setq column-number-mode t)
 #+END_SRC
+
 ** Set y and n instead of yes-or-no
 #+BEGIN_SRC emacs-lisp
 (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
+
 ** Disable default startup message
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
 #+END_SRC
+
 ** Changing highlighting
 #+BEGIN_SRC emacs-lisp
 (custom-set-faces
@@ -131,6 +154,7 @@ It looks like: =(x)(y) **[File] U: Mode 12% 10k=
  ;; If there is more than one, they won't work right.
  '(region ((t (:inherit nil :background "RoyalBlue4")))))
 #+END_SRC
+
 ** Auto-refresh buffers
 #+BEGIN_SRC emacs-lisp
 (global-auto-revert-mode 1)
@@ -141,13 +165,14 @@ Also auto refresh dired, but be quiet about it
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 #+END_SRC
-** Scaling text size
-It's nice to be able to make the text size bigger and smaller. On a Mac it's =Command-+= so this seemed logical.
 
-#+begin_src emacs-lisp :tangle yes
+** Scaling text size
+It's nice to be able to make the text size bigger and smaller. On a Mac it's =Command-+= so this seemed logical, and on Linux it's =M-+= like it should be.
+
+#+BEGIN_SRC emacs-lisp
 (global-set-key "\M-+" 'text-scale-increase)
 (global-set-key "\M-_" 'text-scale-decrease)
-#+end_src
+#+END_SRC
 
 ** Scaling the font, and going back to default
 #+BEGIN_SRC emacs-lisp
@@ -179,30 +204,23 @@ It's nice to be able to make the text size bigger and smaller. On a Mac it's =Co
 These are some globalkey bindings I've gotten used to or want to have. I bet they are redundant, but at least I can think of them
 without needing to to =M-x blah=.
 
-** browse-url
-I like the idea of being able to hit =C-c b= on a URL and have it open in my browser.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-c b") 'browse-url-at-point)
-#+end_src
-
 ** Spell check and thesaurus
 *** Spell Check
 Auto-load =ispell-get-word=
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (autoload 'ispell-get-word "ispell")
 #+end_src
 
 I can never seem to remember what the spell check is, but =M-s M-s= seemed quick enough for me.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (global-set-key (kbd "M-s M-s") 'ispell-word)
 #+end_src
 
 And lookup words in http://en.wiktionary.org/
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (defun lookup-word (word)
   (interactive (list (save-excursion (car (ispell-get-word nil)))))
   (browse-url (format "http://en.wiktionary.org/wiki/%s" word)))
@@ -210,172 +228,47 @@ And lookup words in http://en.wiktionary.org/
 (global-set-key (kbd "M-#") 'lookup-word)
 #+end_src
 
-*** Thesaurus
-https://www.emacswiki.org/emacs/thesaurus.el
-
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/el/")
-(require 'thesaurus)
-(thesaurus-set-bhl-api-key-from-file "~/BigHugeLabs.apikey.txt")
-(define-key global-map (kbd "M-s t") 'thesaurus-choose-synonym-and-replace)
-#+END_SRC
-
 ** [comment|Uncomment] region
 While I'm debugging the best think I can do is Comment out or Uncomment out quickly to figure out what's going wrong.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (global-set-key "\C-c#" 'comment-region)
 (global-set-key "\C-cu" 'uncomment-region)
-#+end_src
-
-** indent-region
-This just seemed like a logical key binding. I almost never use it though.
-#+begin_src emacs-lisp :tangle yes
-(global-set-key "\C-ci" 'indent-region)
 #+end_src
 
 ** write-out-region
 Sometimes I have a region that could it's own file. This does it for me.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-x w") 'write-region)
 #+end_src
 
 ** magit-status
 Per the magit readme, this is one of the most used key bindings I have.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-c g") 'magit-status)
 #+end_src
 
 ** shortcut for shell
 I sometimes don't want to hop over to my Terminal, this way I can do it inside of emacs.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-c s") 'shell)
 #+end_src
 
 ** Change crtl-x for dvork
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 ;; Swap “C-t” and “C-x”, so it's easier to type on Dvorak layout
 (keyboard-translate ?\C-t ?\C-x)
 (keyboard-translate ?\C-x ?\C-t)
 #+end_src
-** toggle horizontal and vertial splits
-I like splitting frames, this way i can flip em.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-x |") 'toggle-window-split)
-#+end_src
-* Search Settings
-** Swiper
-This adds https://github.com/abo-abo/swiper. Thanks to http://cestlaz.github.io/posts/using-emacs-6-swiper/
-#+BEGIN_SRC emacs-lisp
-(use-package ivy
-  :ensure t
-)
-(use-package swiper
-  :ensure t
-  :config
-  (progn
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (global-set-key "\C-s" 'swiper)))
-#+END_SRC
-** Avy
-Skipping out on =ace-jump-mode= giving Avy a shot. http://emacsredux.com/blog/2015/07/19/ace-jump-mode-is-dead-long-live-avy/
-#+BEGIN_SRC emacs-lisp
-(use-package avy
-  :ensure t
-)
-
-(global-set-key (kbd "C-0") 'avy-goto-char)
-#+END_SRC
-* Never tabs
-#+BEGIN_SRC emacs-lisp
-(setq-default indent-tabs-mode nil)
-(setq tab-width 2) ; set the tab width to two
-#+END_SRC
-* Flyspell
-This turns on flyspell for anything that is text and comments too!
-#+BEGIN_SRC emacs-lisp
-(add-hook 'text-mode-hook 'flyspell-mode)
-(setq ispell-program-name "aspell"
-      ispell-extra-args '("--sug-mode=ultra"))
-(dolist (mode '(emacs-lisp-mode-hook
-                inferior-lisp-mode-hook
-                ruby-mode-hook
-                python-mode-hook
-                js-mode-hook
-                chef-mode-hook))
-  (add-hook mode
-            '(lambda ()
-               (flyspell-prog-mode))))
-#+END_SRC
-* OSX settings
-These are some Mac OSX settings that I've found I need to use for Emacs. YMMV but so far this does what I want.
-
-This is taken from http://stackoverflow.com/questions/18855510/have-emacs-highlight-characters-over-80b
-#+BEGIN_SRC emacs-lisp :tangle yes
-;(require 'whitespace)
-; (setq whitespace-style '(face empty tabs lines-tail trailing))
-;(global-whitespace-mode t)
-#+END_SRC
-
-** Homebrew Fix
-
-#+begin_src emacs-lisp :tangle yes
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(setq exec-path (append exec-path '("/usr/local/bin")))
-#+end_src
-
-** Mac keyboard settings
-
-#+begin_src emacs-lisp :tangle yes
-(setq default-frame-alist
-      '((top . 25) (left . 1)
-        (width . 125) (height . 35)))
-(set-frame-parameter (selected-frame) 'alpha '(99 95))
-(setq mac-option-key-is-meta nil)
-(setq mac-command-key-is-meta t)
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier nil)
-#+end_src
-
-** Keep OSX from opening more windows
-
-#+begin_src emacs-lisp :tangle yes
-(setq ns-pop-up-frames nil)
-#+end_src
-
-* Themes
-Converted to the solarized-dark theme
-I also like the wombat,wheatgrass, but lets start here
-#+BEGIN_SRC emacs-lisp
-;; (load-theme 'solarized-dark t)
-#+END_SRC
-
-Introduced to zenburn (11/25/2014) I think i like it more
-#+BEGIN_SRC emacs-lisp
-;; (load-theme 'zenburn t)
-#+END_SRC
-
-stolen from xah's tutorials
-#+BEGIN_SRC emacs-lisp
-(load-theme 'misterioso)
-#+END_SRC
-
-introduced to Spolsky (06/15/2015)
-#+BEGIN_SRC emacs-lisp
-;; (load-theme 'spolsky t)
-#+END_SRC
-
 * Flycheck
 These are my settings for flycheck
 
 Turn on flycheck
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (use-package flycheck
   :ensure t
   :init
@@ -384,7 +277,7 @@ Turn on flycheck
 
 Set flycheck with shellcheck for =sh-mode= [[http://skybert.net/emacs/bash-linting-in-emacs/][Referance]]
 
-#+BEGIN_SRC emacs-lisp :tangle
+#+BEGIN_SRC emacs-lisp
 (add-hook 'sh-mode-hook 'flycheck-mode)
 #+END_SRC
 
@@ -400,31 +293,23 @@ The following turns on company-mode by default
 (add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
 
-** Default major mode
-
 ** DockerFile mode
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/modes/dockerfile-mode/")
-(require 'dockerfile-mode)
-(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+;(add-to-list 'load-path "~/.emacs.d/modes/dockerfile-mode/")
+;(require 'dockerfile-mode)
+;(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 #+END_SRC
 
-** eldoc mode
-#+BEGIN_SRC emacs-lisp
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
-#+END_SRC
 ** Git Gutter mode
 Make sure that [[https://github.com/syohex/emacs-git-gutter][git-gutter]] is setup for ruby-mode
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (add-hook 'ruby-mode-hook 'git-gutter-mode)
 #+end_src
 
 Some random variables and such that I like.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -436,103 +321,17 @@ Some random variables and such that I like.
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
 #+end_src
 
-** Golden Ratio mode
-
-This sets up the golden ratio package
-
-http://pragmaticemacs.com/emacs/resize-your-windows-to-the-golden-ratio/
-
-#+BEGIN_SRC elisp :tangle yes
-(use-package golden-ratio
-  :ensure t
-  :diminish golden-ratio-mode
-  :init
-  (golden-ratio-mode 1))
-#+END_SRC
-
-** Helm mode
-*** General
-
-These are some settings to make helm work inside of emacs. It takes a bit to get used to but well worth the time.
-
-*** Activate helm
-
-After installing helm, this is how to turn it on.
-
-#+begin_src emacs-lisp :tangle yes
-(require 'helm)
-(require 'helm-config)
-#+end_src
-
-*** Change some default emacs settings to helm
-
-- The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-- Changed to "C-c h". Note: We must set "C-c h" globally, because we
-- cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
-#+end_src
-
-- I need tab complete, by default it leverages fuzzy matching for everything
-
-#+begin_src emacs-lisp :tangle yes
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-#+end_src
-
-*** helm-M-x
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key "\M-x" 'helm-M-x)
-#+end_src
-
-*** show the helm kill ring
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-#+end_src
-
-*** helm-buffer-list
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-x b") 'helm-mini)
-#+end_src
-
-*** helm-find-files
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-#+end_src
-
-*** fuzzy matching
-
-#+begin_src emacs-lisp :tangle yes
-(setq helm-buffers-fuzzy-matching           t
-      helm-recentf-fuzzy-match              t
-      helm-split-window-in-side-p           t )
-
-;; optional fuzzy matching for helm-M-x
-(setq helm-M-x-fuzzy-match t)
-#+end_src
-
-*** helm-google-suggest
-
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-c M-g") 'helm-google-suggest)
-#+end_src
-
 ** JavaScript mode
 
 Here is a way to change the indentation for javascript-mode to 2. Stolen from: http://stackoverflow.com/questions/4177929/how-to-change-the-indentation-width-in-emacs-javascript-mode
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq js-indent-level 2)
 #+end_src
 
 Enable j2-mode for linting
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (use-package js2-mode
   :ensure t
   :init
@@ -541,17 +340,10 @@ Enable j2-mode for linting
 (add-hook 'js-mode-hook 'js2-minor-mode)
 #+end_src
 
-** Lorem-ipsum mode
-#+BEGIN_SRC emacs-lisp
-(autoload 'Lorem-ipsum-insert-paragraphs "lorem-ipsum" "" t)
-(autoload 'Lorem-ipsum-insert-sentences "lorem-ipsum" "" t)
-(autoload 'Lorem-ipsum-insert-list "lorem-ipsum" "" t)
-#+END_SRC
-
 ** Markdown mode
 Theses are configurations for markdown. I like markdown a lot so that's why it's so aggressive.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
  (use-package markdown-mode
     :ensure t)
 (autoload 'markdown-mode "markdown-mode"
@@ -564,7 +356,7 @@ Theses are configurations for markdown. I like markdown a lot so that's why it's
 ** Org mode
 *** General
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq org-log-done 'time)
 (setq org-default-notes-file (concat "~/org/todo.org"))
 (define-key global-map "\C-cc" 'org-capture)
@@ -573,7 +365,7 @@ Theses are configurations for markdown. I like markdown a lot so that's why it's
 #+end_src
 
 *** org-capture templates
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 ;(setq org-capture-templates
 ;      '(("t"              ; hotkey
 ;         "TODO list item" ; name
@@ -601,7 +393,7 @@ Theses are configurations for markdown. I like markdown a lot so that's why it's
 
 *** org-todo-keywords
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq org-todo-keywords
       '((sequence "TODO(t)" "BLOCKED(b)" "INPROGRESS(i)" "|" "DONE(d)")
         (sequence "KNOWNISSUE(k)" "|" "CANCELED(c)")
@@ -610,7 +402,7 @@ Theses are configurations for markdown. I like markdown a lot so that's why it's
 
 This is to changed the colors of the different keywords, still working on what I want.
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 (setq org-todo-keyword-faces
       '(("TODO" . (:foreground "DarkOrange1" :weight bold))
         ("BLOCKED" . (:foreground "sea green"))
@@ -623,7 +415,7 @@ This is to changed the colors of the different keywords, still working on what I
 
 took from: https://github.com/rlister/org-present
 
-#+BEGIN_SRC  sh :tangle no
+#+BEGIN_SRC sh
 M-x org-present
 C-c C-q for quit (which will return you back to vanilla org-mode)
 #+END_SRC
@@ -655,7 +447,7 @@ These are the main settings:
 
 *** org-babel
 Things org-babel can do.
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 ;(org-babel-do-load-languages 'org-babel-load-languages '(
 ;        (python . t)
 ;        (ditaa . t))
@@ -669,7 +461,7 @@ Get out of =org-src-mode= because mine is broken?
 
 *** my main notes.org settings
 
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
 ;; shortcut to notes.org
 ;(global-set-key (kbd "C-c n")
 ;                (lambda () (interactive) (find-file "~/org/notes.org")))
@@ -681,15 +473,15 @@ Get out of =org-src-mode= because mine is broken?
 I created a [[https://github.com/jjasghar/alfred-org-capture][alfred plugin]] to help with this too.
 
 #+begin_src emacs-lisp :tangle yes
-(defun make-orgcapture-frame ()
-  "Create a new frame and run org-capture."
-  (interactive)
-  (make-frame '((name . "remember") (width . 80) (height . 16)
-                (top . 400) (left . 300)
-                (font . "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-                ))
-  (select-frame-by-name "remember")
-  (org-capture))
+;(defun make-orgcapture-frame ()
+;  "Create a new frame and run org-capture."
+;  (interactive)
+;  (make-frame '((name . "remember") (width . 80) (height . 16)
+;                (top . 400) (left . 300)
+;                (font . "-apple-Monaco-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+;                ))
+;  (select-frame-by-name "remember")
+;  (org-capture))
 #+end_src
 *** Emacs auto-completion for non-programmers
 
@@ -717,54 +509,36 @@ Stolen from [[http://blog.binchen.org/posts/emacs-auto-completion-for-non-progra
 (add-hook 'org-mode-hook 'org-mode-hook-setup)
 
 #+end_src
-*** org-reveal
-This section is for org-reveal. https://github.com/yjwen/org-reveal/
+*** org-re-reveal
 
-#+begin_src emacs-lisp :tangle yes
-  (add-to-list 'load-path "~/.emacs.d/modes/org-reveal/")
-  (require 'ox-reveal)
-
-  (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
++begin_src emacs-lisp :tangle yes
+  (require 'org-re-reveal)
+  (add-to-list 'load-path "/home/jj/Downloads/reveal.js-3.8./js/reveal.js")
   (setq org-reveal-mathjax t)
-
   (use-package htmlize
     :ensure t)
-#+end_src
++end_src
 
 *** org-agenda
 This section is for org-agenda.
 
 #+begin_src emacs-lisp :tangle yes
-(setq org-agenda-files (list "~/org/chef.org"
-                             "~/org/emacs.org"
-                             "~/org/freebsd.org"
-                             "~/org/model-t.org"
-                             "~/org/ruby.org"
-                             "~/org/todo.org"
-                             "~/org/videos.org"
-                             "~/org/work.org"
-))
+;(setq org-agenda-files (list "~/org/chef.org"
+;                             "~/org/emacs.org"
+;                             "~/org/freebsd.org"
+;                             "~/org/model-t.org"
+;                             "~/org/ruby.org"
+;                             "~/org/todo.org"
+;                             "~/org/videos.org"
+;                             "~/org/work.org"
+;))
 #+end_src
 
 *** ox-twbs
 This installs and configures [[https://github.com/marsmining/ox-twbs][org mode twitter bootstrap]]
 #+BEGIN_SRC emacs-lisp
-  (use-package ox-twbs
-    :ensure t)
-#+END_SRC
-** proselint mode
-Taken from http://unconj.ca/blog/linting-prose-in-emacs.html
-#+BEGIN_SRC emacs-lisp tangle: no
-(flycheck-define-checker proselint
-  "A linter for prose."
-  :command ("proselint" source-inplace)
-  :error-patterns
-  ((warning line-start (file-name) ":" line ":" column ": "
-        (id (one-or-more (not (any " "))))
-        (message) line-end))
-  :modes (text-mode markdown-mode gfm-mode message-mode notmuch-message-mode))
-
-(add-to-list 'flycheck-checkers 'proselint)
+;  (use-package ox-twbs
+;    :ensure t)
 #+END_SRC
 ** powershell mode
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -807,8 +581,8 @@ Taken from http://unconj.ca/blog/linting-prose-in-emacs.html
    Run web-mode when you have an .erb, makes reading it SO much better.
 
    #+begin_src emacs-lisp :tangle yes
-  (when (require 'web-mode nil t)
-    (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode)))
+;  (when (require 'web-mode nil t)
+;    (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode)))
    #+end_src
 
 *** rubocop settings
@@ -827,91 +601,10 @@ Taken from http://unconj.ca/blog/linting-prose-in-emacs.html
     :ensure t)
 #+END_SRC
 
-** rust mode
-#+BEGIN_SRC emacs-lisp
- (use-package rust-mode
-    :ensure t)
- (use-package flycheck-rust
-    :ensure t)
-#+END_SRC
-
-#+RESULTS:
-
 ** terraform mode
 #+BEGIN_SRC emacs-lisp
  (use-package terraform-mode
     :ensure t)
-#+END_SRC
-
-** Twit mode
-#+BEGIN_SRC emacs-lisp
-(setq twittering-use-master-password t)
-(setq twittering-use-icon-storage t)
-(setq twittering-icon-mode t)
-(setq twittering-display-remaining t)
-#+END_SRC
-
-** Web mode
-*** General
-Enable web-mode:
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-(require 'web-mode)
-#+end_src
-
-Make sure some file types know about webmode
-
-#+BEGIN_SRC emacs-lisp :tangle yes
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-#+end_src
-
-*** Getting webmode todo two spaces
-
-Disabling tabs-mode
-#+begin_src emacs-lisp :tangle yes
-(setq-default indent-tabs-mode nil)
-#+end_src
-
-#+begin_src emacs-lisp :tangle yes
-(setq web-mode-markup-indent-offset 2)
-#+end_src
-*** Highlighting elements and columns
-
-Highlighting element
-#+begin_src emacs-lisp :tangle yes
-(setq web-mode-enable-current-element-highlight t)
-#+end_src
-
-Highlighting column
-#+begin_src emacs-lisp :tangle yes
-(setq web-mode-enable-current-column-highlight t)
-#+end_src
-
-** writegood mode
-taken from http://bnbeckwith.com/code/writegood-mode.html
-#+BEGIN_SRC emacs-lisp :tange no
-(add-to-list 'load-path "~/.emacs.d/modes/writegood-mode")
-(require 'writegood-mode)
-#+END_SRC
-
-using flycheck
-#+BEGIN_SRC emacs-lisp tangle: no
-(flycheck-define-checker writegood
-  "A linter for prose."
-  :command ("write-good" source-inplace)
-  :error-patterns
-  ((warning line-start (file-name) ":" line ":" column ": "
-        (id (one-or-more (not (any " "))))
-        (message) line-end))
-  :modes (text-mode markdown-mode gfm-mode message-mode notmuch-message-mode))
-
-(add-to-list 'flycheck-checkers 'writegood)
 #+END_SRC
 
 ** YAML mode
@@ -979,15 +672,6 @@ This automatically deletes those trailing white spaces
 #+BEGIN_SRC emacs-lisp
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
-* My Abbrevs
-Turn on abbrevs --> t h e C-x a g t e h <RET>
-http://www.Emacswiki.org/emacs/AbbrevMode
-#+BEGIN_SRC emacs-lisp
-(setq-default abbrev-mode t)
-(setq abbrev-file-name
-      "~/.emacs.d/abbrev_defs")
-(setq save-abbrevs t)
-#+END_SRC
 * My Defined Functions
 
 narrow-dwim http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
@@ -1033,33 +717,6 @@ prefer for `sh-mode'.  It is automatically added to
 (add-hook 'sh-mode-hook 'asghar-setup-sh-mode)
 
 #+END_SRC
-I like two buffers but sometimes i like it vert/horizontal
-#+BEGIN_SRC emacs-lisp
-  (defun toggle-window-split ()
-    (interactive)
-    (if (= (count-windows) 2)
-        (let* ((this-win-buffer (window-buffer))
-               (next-win-buffer (window-buffer (next-window)))
-               (this-win-edges (window-edges (selected-window)))
-               (next-win-edges (window-edges (next-window)))
-               (this-win-2nd (not (and (<= (car this-win-edges)
-                                           (car next-win-edges))
-                                       (<= (cadr this-win-edges)
-                                           (cadr next-win-edges)))))
-               (splitter
-                (if (= (car this-win-edges)
-                       (car (window-edges (next-window))))
-                    'split-window-horizontally
-                  'split-window-vertically)))
-          (delete-other-windows)
-          (let ((first-win (selected-window)))
-            (funcall splitter)
-            (if this-win-2nd (other-window 1))
-            (set-window-buffer (selected-window) this-win-buffer)
-            (set-window-buffer (next-window) next-win-buffer)
-            (select-window first-win)
-            (if this-win-2nd (other-window 1))))))
-#+END_SRC
 Remove ^M
 #+BEGIN_SRC emacs-lisp
   (defun strip-^m ()
@@ -1069,19 +726,6 @@ Remove ^M
       (replace-match "")))
   ;;(define-key esc-map "o" 'strip-^m)
 #+END_SRC
-zones http://www.emacswiki.org/emacs/ZoneMode
-#+BEGIN_SRC emacs-lisp
-(defun zone-choose (pgm)
-   "Choose a PGM to run for `zone'."
-   (interactive
-    (list
-     (completing-read
-      "Program: "
-      (mapcar 'symbol-name zone-programs))))
-   (let ((zone-programs (list (intern pgm))))
-     (zone)))
-
-#+END_SRC
 My first fuction in emacs :)
 #+BEGIN_SRC emacs-lisp
 (defun reddit-emacs ()
@@ -1090,21 +734,6 @@ My first fuction in emacs :)
   (browse-url "http://reddit.com/r/emacs"))
 (global-set-key (kbd "C-c C-r") 'reddit-emacs)
 #+END_SRC
-transpose buffers http://www.emacswiki.org/emacs/TransposeWindows
-#+BEGIN_SRC emacs-lisp
-(defun flip-buffers (arg)
-  "Transpose the buffers shown in two windows."
-  (interactive "p")
-  (let ((selector (if (>= arg 0) 'next-window 'previous-window)))
-    (while (/= arg 0)
-      (let ((this-win (window-buffer))
-            (next-win (window-buffer (funcall selector))))
-        (set-window-buffer (selected-window) next-win)
-        (set-window-buffer (funcall selector) this-win)
-        (select-window (funcall selector)))
-      (setq arg (if (plusp arg) (1- arg) (1+ arg))))))
-#+END_SRC
-
 You should avoid these words.
 
 #+BEGIN_SRC emacs-lisp
@@ -1133,13 +762,7 @@ Only turn on line numbers when GoTo line is on
         (goto-line (read-number "Goto line: ")))
     (linum-mode -1)))
 #+END_SRC
-Kill all other buffers
-#+BEGIN_SRC emacs-lisp
-(defun kill-other-buffers ()
-  "Kill all other buffers."
-  (interactive)
-  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
-#+END_SRC
+
 Create scratch buffer
 #+BEGIN_SRC emacs-lisp
 (defun create-scratch-buffer nil
@@ -1148,16 +771,19 @@ Create scratch buffer
   (switch-to-buffer (get-buffer-create "*scratch*"))
   (lisp-interaction-mode))
 #+END_SRC
+
 Insert-epoch time
 #+BEGIN_SRC emacs-lisp
 (defun insert-epoch () (interactive)
     (insert (shell-command-to-string "echo -n $(date +%s)")))
 #+END_SRC
+
 Insert Current time
 #+BEGIN_SRC emacs-lisp
 (defun insert-current-date () (interactive)
     (insert (shell-command-to-string "echo -n $(date +%Y-%m-%d)")))
 #+END_SRC
+
 Inserts a newline above the line containing the point
 #+BEGIN_SRC emacs-lisp
 (defun my/insert-line-before (times)
@@ -1171,20 +797,7 @@ Inserts a newline above the line containing the point
 (global-set-key (kbd "C-S-o")
                 'my/insert-line-before)
 #+END_SRC
-the-the function -> http://www.gnu.org/software/emacs/manual/html_mono/eintr.html#the_002dthe
-#+BEGIN_SRC emacs-lisp
-(defun the-the ()
-  "Search forward for for a duplicated word."
-  (interactive)
-  (message "Searching for for duplicated words ...")
-  (push-mark)
-  ;; This regexp is not perfect
-  ;; but is fairly good over all:
-  (if (re-search-forward
-       "\\b\\([^@ \n\t]+\\)[ \n\t]+\\1\\b" nil 'move)
-      (message "Found duplicated word.")
-    (message "End of buffer")))
-#+END_SRC
+
 Added a binding for require pry
 #+BEGIN_SRC emacs-lisp
 (defun insert-require-pry-binding-pry ()
@@ -1194,39 +807,7 @@ Added a binding for require pry
 
 (global-set-key "\C-c\C-p" 'insert-require-pry-binding-pry)
 #+END_SRC
-A better whitespace checker http://www.reddit.com/r/emacs/comments/33vah8/whitespace_mode/
-#+BEGIN_SRC emacs-lisp
-(defun better-whitespace ()
-  (interactive)
-  (whitespace-mode -1)
-  (let ((ws-small '(face lines-tail))
-        (ws-big '(face tabs spaces trailing lines-tail space-before-tab
-                       newline indentation empty space-after-tab space-mark
-                       tab-mark newline-mark)))
-    (if (eq whitespace-style ws-small)
-        (setq whitespace-style ws-big)
-     (setq whitespace-style ws-small)))
-  (whitespace-mode 1))
-(define-key prog-mode-map (kbd "C-c w") 'better-whitespace)
-#+END_SRC
-helm-company choose from company completions with C-:
-#+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'company
-  (define-key company-mode-map (kbd "C-:") 'helm-company)
-  (define-key company-active-map (kbd "C-:") 'helm-company))
-#+END_SRC
 
-* Guide key
-#+BEGIN_SRC emacs-lisp
-(require 'guide-key)
-;; add the keys you'd like guide-key to suggest
-(setq guide-key/guide-key-sequence '("C-x r"
-                                     "C-x 4"
-                                     "C-c"
-                                     "C-c C-x"
-                                     ))
-(guide-key-mode 1)  ; Enable guide-key-mode
-#+END_SRC
 * ERC
 ** General
 ERC is a built in IRC client to emacs. Here are some configurations I've come up with to help make my life easier.
@@ -1338,170 +919,35 @@ I use a mac, and growl helps notify me on when I'm tabbed out of emacs.
 Create a file with something like the following
 
 #+begin_src  :tangle no
-(setq freenode-nickone-pass "mynickservpass1")
-(setq freenode-nicktwo-pass "mynickservpass2")
-(setq dalnet-pass "mynickservpass3")
+;(setq freenode-nickone-pass "mynickservpass1")
+;(setq freenode-nicktwo-pass "mynickservpass2")
+;(setq dalnet-pass "mynickservpass3")
 #+END_SRC
 
 The following will load up the file and use it as your authentication for the irc servers.
 
 #+begin_src emacs-lisp :tangle yes
-(load "~/.ercpass")
+;(load "~/.ercpass")
 
-(require 'erc-services)
-(erc-services-mode 1)
-(setq erc-prompt-for-nickserv-password nil)
-    (setq erc-nickserv-passwords
-          `((freenode     (("j^2" . ,freenode-nickone-pass)
-                           ("nick-two" . ,freenode-nicktwo-pass)))
-            (DALnet       (("nickname" . ,dalnet-pass)))))
+;(require 'erc-services)
+;(erc-services-mode 1)
+;(setq erc-prompt-for-nickserv-password nil)
+;    (setq erc-nickserv-passwords
+;          `((freenode     (("j^2" . ,freenode-nickone-pass)
+;                           ("nick-two" . ,freenode-nicktwo-pass)))
+;            (DALnet       (("nickname" . ,dalnet-pass)))))
 #+END_SRC
 
 ** Global switch to ERC
 
 With this you can switch to ERC with =C-c e=.
 #+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-c e") 'erc-start-or-switch)
+;(global-set-key (kbd "C-c e") 'erc-start-or-switch)
 #+END_SRC
 
-* Webjump
-bind webjump to C-x g http://www.neilvandyke.org/webjump/webjump.el
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x g") 'webjump)
-(setq webjump-sites
-         (append '(
-                   ("Chef Docs"           . "docs.getchef.com/search.html")
-                   ("Geektools Whois"     .
-                    [simple-query "www.geektools.com/whois.html"
-                                  "www.geektools.com/geektools-cgi/whois.cgi?query=" ""])
-                   ("Github"              .
-                    [simple-query "www.github.com" "https://github.com/search?utf8=✓&q=" ""])
-                   ("Google"              .
-                    [simple-query "www.google.com" "www.google.com/search?q=" ""])
-                   ("Google Groups"       .
-                    [simple-query "groups.google.com" "groups.google.com/groups?q=" ""])
-                   ("IMDB"               .
-                    [simple-query "www.imdb.com"  "www.imdb.com/find?q=" ""])
-                   ("Twitter"            . "www.twitter.com/")
-                   ("Wikipedia"          .
-                    [simple-query "en.wikipedia.org" "en.wikipedia.org/w/index.php?search=" ""])
-                   )))
-#+END_SRC
-* google-this
-This installs and configures =google-this= stole this from [[http://pragmaticemacs.com/emacs/google-search-from-inside-emacs/][here]]
-#+BEGIN_SRC emacs-lisp
-  (use-package google-this
-    :config
-    (google-this-mode 1))
-#+END_SRC
-| Key command    | what it does                                  |
-|----------------+-----------------------------------------------|
-| C-c / SPC      | 	google-this-region                    |
-| C-c / a        | 	google-this-ray                       |
-| C-c / c        | 	google-this-translate-query-or-region |
-| C-c / e        | 	google-this-error                     |
-| C-c / f        | 	google-this-forecast                  |
-| C-c / g        | 	google-this-lucky-search              |
-| C-c / i        | 	google-this-lucky-and-insert-url      |
-| C-c / l        | 	google-this-line                      |
-| C-c / m        | 	google-maps                           |
-| C-c / n        | 	google-this-noconfirm                 |
-| C-c / r        | 	google-this-cpp-reference             |
-| C-c / s        | 	google-this-symbol                    |
-| C-c / t        | 	google-this                           |
-| C-c / w        | 	google-this-word                      |
-| C-c / <return> | 	google-this-search                    |
-* notmuch
-
-My notmuch configuration
-
-Bind =C-c m= to notmuch
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c m") 'notmuch)
-#+END_SRC
-
-Set up some closing of buffers when I've sent a message.
-#+BEGIN_SRC emacs-lisp
-;Setup User-Agent header
-(setq mail-user-agent 'message-user-agent)
-
-(setq message-kill-buffer-on-exit t) ; kill buffer after sending mail)
-(setq mail-specify-envelope-from t) ; Settings to work with msmtp
-#+END_SRC
-
-Set up some smtp configurations
-#+BEGIN_SRC emacs-lisp
-(setq sendmail-program "msmtp")
-(setq message-sendmail-f-is-evil 't)
-(setq message-sendmail-extra-arguments '("--read-envelope-from"))
-#+END_SRC
-
-
-Add the following to your notmuch init file to get a status message about the change in the number of messages in the mail store when refreshing the notmuch-hello buffer.
-#+BEGIN_SRC emacs-lisp
-  (defvar notmuch-hello-refresh-count 0)
-
-  (defun notmuch-hello-refresh-status-message ()
-    (unless no-display
-      (let* ((new-count
-              (string-to-number
-               (car (process-lines notmuch-command "count"))))
-             (diff-count (- new-count notmuch-hello-refresh-count)))
-        (cond
-         ((= notmuch-hello-refresh-count 0)
-          (message "You have %s messages."
-                   (notmuch-hello-nice-number new-count)))
-         ((> diff-count 0)
-          (message "You have %s more messages since last refresh."
-                   (notmuch-hello-nice-number diff-count)))
-         ((< diff-count 0)
-          (message "You have %s fewer messages since last refresh."
-                   (notmuch-hello-nice-number (- diff-count)))))
-        (setq notmuch-hello-refresh-count new-count))))
-
-  (add-hook 'notmuch-hello-refresh-hook 'notmuch-hello-refresh-status-message)
-#+END_SRC
-
-Taken from https://bostonenginerd.com/posts/notmuch-of-a-mail-setup-part-2-notmuch-and-emacs/
-#+BEGIN_SRC emacs-lisp
-(setq notmuch-saved-searches
-(quote
-((:name "inbox" :query "tag:inbox" :key "i" :sort-order newest-first)
- (:name "flagged" :query "tag:flagged" :key "f") ;flagged messages
- (:name "sent" :query "tag:sent -tag:work" :key "t" :sort-order newest-first)
- (:name "drafts" :query "tag:draft" :key "d")
- (:name "mailinglist" :query "tag:lists/mailinglistID" :key "c")
- (:name "all mail" :query "*" :key "a" :sort-order newest-first))))
-#+END_SRC
-
-Mark things as spam
-#+BEGIN_SRC emacs-lisp :tangle no
-(define-key notmuch-show-mode-map "S"
-    (lambda ()
-    "mark message as spam"
-    (interactive)
-(notmuch-show-tag (list "+spam" "-inbox"))))
-
-(define-key notmuch-search-mode-map "S"
-(lambda ()
-    "mark message as spam"
-    (interactive)
-    (notmuch-search-tag (list "-inbox" "+spam"))
-    (next-line) ))
-#+END_SRC
 * restcliest.el
 #+BEGIN_SRC emacs-lisp
   (use-package restclient
     :ensure t)
 #+END_SRC
 https://github.com/pashky/restclient.el
-* Atomic-Chrome
-#+BEGIN_SRC emacs-lisp
-  (use-package atomic-chrome
-    :ensure t
-    :config
-    (atomic-chrome-start-server)
-    (setq atomic-chrome-default-major-mode 'markdown-mode)
-    (setq atomic-chrome-buffer-open-style 'frame)
-    )
-#+END_SRC
