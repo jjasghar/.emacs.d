@@ -161,16 +161,12 @@ It looks like: =(x)(y) **[File] U: Mode 12% 10k=
  '(region ((t (:inherit nil :background "RoyalBlue4")))))
 #+END_SRC
 
+
 ** Auto-refresh buffers
 #+BEGIN_SRC emacs-lisp
 (global-auto-revert-mode 1)
 #+END_SRC
 
-Also auto refresh dired, but be quiet about it
-#+BEGIN_SRC emacs-lisp
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
-#+END_SRC
 
 ** Scaling text size
 It's nice to be able to make the text size bigger and smaller. On a Mac it's =Command-+= so this seemed logical, and on Linux it's =M-+= like it should be.
@@ -300,10 +296,25 @@ Disable flycheck checkers
     (add-to-list 'auto-mode-alist '("\\.env$"          . conf-mode)))
    #+end_src
 ** Company mode
+
 The following turns on company-mode by default
 #+BEGIN_SRC emacs-lisp
 (add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
+
+** Dired Mode
+
+Auto refresh dired, but be quiet about it
+#+BEGIN_SRC emacs-lisp
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
+#+END_SRC
+
+Default dired mode output
+#+BEGIN_SRC emacs-lisp
+(setq dired-listing-switches "-lah")
+#+END_SRC
+
 
 ** DockerFile mode
 #+BEGIN_SRC emacs-lisp
