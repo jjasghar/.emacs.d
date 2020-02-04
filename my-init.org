@@ -10,8 +10,8 @@ This sets my email address and my full-name
 #+END_SRC
 
 * Emacs server
-This starts up the emacs server, :)
-Use the emacsclient now :)
+This starts up the emacs server
+Use the emacsclient now
 #+BEGIN_SRC emacs-lisp
 (server-start)
 #+END_SRC
@@ -39,6 +39,7 @@ There are two things you can do about this warning:
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 #+END_SRC
+
 ** Themes
 misterioso via default themes (11/8/2019)
 #+BEGIN_SRC emacs-lisp
@@ -54,8 +55,8 @@ misterioso via default themes (11/8/2019)
 ** Font changes
 I don't know my fonts very well, but this seems to be the one I like the most
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'default-frame-alist '(font . "-outline-Monaco-normal-normal-normal-mono-20-*-*-*-c-*-iso8859-1" ))
-(set-face-attribute 'default nil :font "-outline-Monaco-normal-normal-normal-mono-20-*-*-*-c-*-iso8859-1" )
+;(add-to-list 'default-frame-alist '(font . "-outline-Monaco-normal-normal-normal-mono-20-*-*-*-c-*-iso8859-1" ))(
+;(set-face-attribute 'default nil :font "-outline-Monaco-normal-normal-normal-mono-20-*-*-*-c-*-iso8859-1" )
 #+END_SRC
 
 This adds a default font size for my old man eyes.
@@ -120,22 +121,22 @@ Ivy Mode: https://github.com/abo-abo/swiper
 (setq enable-recursive-minibuffers t)
 ;; enable this if you want `swiper' to use it
 ;; (setq search-default-mode #'char-fold-to-regexp)
-(global-set-key "\C-s" 'swiper)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "<f6>") 'ivy-resume)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+;(global-set-key "\C-s" 'swiper)
+;(global-set-key (kbd "C-c C-r") 'ivy-resume)
+;(global-set-key (kbd "<f6>") 'ivy-resume)
+;(global-set-key (kbd "M-x") 'counsel-M-x)
+;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+;(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+;(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+;(global-set-key (kbd "<f1> l") 'counsel-find-library)
+;(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+;(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+;(global-set-key (kbd "C-c g") 'counsel-git)
+;(global-set-key (kbd "C-c j") 'counsel-git-grep)
+;(global-set-key (kbd "C-c k") 'counsel-ag)
+;(global-set-key (kbd "C-x l") 'counsel-locate)
+;(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+;(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 #+END_SRC
 ** mode-line changes
@@ -383,6 +384,13 @@ Some random variables and such that I like.
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
 #+end_src
 
+** Go-mode
+Getting =.gohtml= to activate web-mode
+   #+begin_src emacs-lisp
+  (when (require 'web-mode nil t)
+    (add-to-list 'auto-mode-alist '("\\.gohtml\\'"   . web-mode)))
+   #+end_src
+
 ** JavaScript mode
 
 Here is a way to change the indentation for javascript-mode to 2. Stolen from: http://stackoverflow.com/questions/4177929/how-to-change-the-indentation-width-in-emacs-javascript-mode
@@ -573,13 +581,13 @@ Stolen from [[http://blog.binchen.org/posts/emacs-auto-completion-for-non-progra
 #+end_src
 *** org-re-reveal
 
-+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle yes
   (require 'org-re-reveal)
   (add-to-list 'load-path "/home/jj/Downloads/reveal.js-3.8./js/reveal.js")
   (setq org-reveal-mathjax t)
   (use-package htmlize
     :ensure t)
-+end_src
+#+end_src
 
 *** org-agenda
 This section is for org-agenda.
@@ -767,7 +775,7 @@ Remove ^M
       (replace-match "")))
   ;;(define-key esc-map "o" 'strip-^m)
 #+END_SRC
-My first fuction in emacs :)
+My first fuction in emacs
 #+BEGIN_SRC emacs-lisp
 (defun reddit-emacs ()
   "Opens up reddit-emacs"
@@ -847,143 +855,6 @@ Added a binding for require pry
        (insert "require 'pry'; binding.pry"))
 
 (global-set-key "\C-c\C-p" 'insert-require-pry-binding-pry)
-#+END_SRC
-
-* ERC
-** General
-ERC is a built in IRC client to emacs. Here are some configurations I've come up with to help make my life easier.
-** Jump to ERC
-
-This following function either switches to the erc buffer or starts up erc for you.
-
-#+begin_src emacs-lisp
-(defun erc-start-or-switch ()
-  "Connect to ERC, or switch to last active buffer"
-  (interactive)
-  (if (get-buffer "irc.freenode.net:6667") ;; ERC already active?
-
-    (erc-track-switch-buffer 1) ;; yes: switch to last active
-    (when (y-or-n-p "Start ERC? ") ;; no: maybe start ERC
-      (erc :server "irc.freenode.net" :port 6667 :nick "j^2" :full-name "JJ Asghar")
-      )))
-#+end_src
-** Channel management
-** Joining Channels
-This is a selection of channels on =freenode= I like to join.
-
-#+begin_src emacs-lisp
-(setq erc-autojoin-channels-alist '(("freenode.net" "#openstack-chef" "#chef" "#c6h12o6" "#emacs"
-                                     "#reddit-diabetes" "#news")
-                                    ))
-#+end_src
-
-If you’d like to join the same channels on any server:
-
-#+begin_src emacs-lisp :tangle yes
-;; (setq erc-autojoin-channels-alist '((".*" "#help" "#emacs")))
-#+end_src
-
-** Muting parts of the channel
-
-#+begin_src emacs-lisp
-(erc-track-mode t)
-#+end_src
-No one likes parts and quits and all.
-
-#+begin_src emacs-lisp
-(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-
-                                 "324" "329" "332" "333" "353" "477"))
-(setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
-#+end_src
-
-** Formatting the buffer
-
-#+BEGIN_SRC
-[12:34] <user-one> the quick brown fox jumps over the lazy dog.  the quick
-       + brown fox jumps over the lazy dog
-#+END_SRC
-
-#+begin_src emacs-lisp
-(setq erc-timestamp-format "[%H:%M] ")
- (setq erc-fill-prefix "      + ")
-#+END_SRC
-
-Fill width so it looks better.
-
-#+begin_src emacs-lisp
-(make-variable-buffer-local 'erc-fill-column)
- (add-hook 'window-configuration-change-hook
-	   '(lambda ()
-	      (save-excursion
-	        (walk-windows
-		 (lambda (w)
-		   (let ((buffer (window-buffer w)))
-		     (set-buffer buffer)
-		     (when (eq major-mode 'erc-mode)
-		       (setq erc-fill-column (- (window-width w) 2)))))))))
-#+END_SRC
-
-** erc growl
-I use a mac, and growl helps notify me on when I'm tabbed out of emacs.
-
-#+begin_src emacs-lisp
-(defvar growlnotify-command (executable-find "/usr/local/bin/growlnotify") "The path to growlnotify")
-
-(defun growl (title message)
-  "Shows a message through the growl notification system using
- `growlnotify-command` as the program."
-  (cl-flet ((encfn (s) (encode-coding-string s (keyboard-coding-system))) )
-    (let* ((process (start-process "growlnotify" nil
-                                   growlnotify-command
-                                   (encfn title)
-                                   "-a" "Emacs"
-                                   "-n" "Emacs")))
-      (process-send-string process (encfn message))
-      (process-send-string process "\n")
-      (process-send-eof process)))
-  t)
-
-(defun my-erc-hook (match-type nick message)
-  "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
-  (unless (posix-string-match "^\\** *Users on #" message)
-    (growl
-     (concat "ERC: name mentioned on: " (buffer-name (current-buffer)))
-     message
-     )))
-
-(add-hook 'erc-text-matched-hook 'my-erc-hook)
-#+END_SRC
-
-** Password
-
-Create a file with something like the following
-
-#+begin_src  :tangle no
-;(setq freenode-nickone-pass "mynickservpass1")
-;(setq freenode-nicktwo-pass "mynickservpass2")
-;(setq dalnet-pass "mynickservpass3")
-#+END_SRC
-
-The following will load up the file and use it as your authentication for the irc servers.
-
-#+begin_src emacs-lisp :tangle yes
-;(load "~/.ercpass")
-
-;(require 'erc-services)
-;(erc-services-mode 1)
-;(setq erc-prompt-for-nickserv-password nil)
-;    (setq erc-nickserv-passwords
-;          `((freenode     (("j^2" . ,freenode-nickone-pass)
-;                           ("nick-two" . ,freenode-nicktwo-pass)))
-;            (DALnet       (("nickname" . ,dalnet-pass)))))
-#+END_SRC
-
-** Global switch to ERC
-
-With this you can switch to ERC with =C-c e=.
-#+begin_src emacs-lisp :tangle yes
-;(global-set-key (kbd "C-c e") 'erc-start-or-switch)
 #+END_SRC
 
 * restcliest.el
