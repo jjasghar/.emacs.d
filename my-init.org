@@ -363,27 +363,6 @@ Default dired mode output
 ;(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 #+END_SRC
 
-** Git Gutter mode
-Make sure that [[https://github.com/syohex/emacs-git-gutter][git-gutter]] is setup for ruby-mode
-
-#+begin_src emacs-lisp
-(add-hook 'ruby-mode-hook 'git-gutter-mode)
-#+end_src
-
-Some random variables and such that I like.
-
-#+begin_src emacs-lisp
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(git-gutter:added-sign "+")
- '(git-gutter:deleted-sign "-")
- '(send-mail-function nil)
- '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
-#+end_src
-
 ** Go-mode
 Getting =.gohtml= to activate web-mode
    #+begin_src emacs-lisp
